@@ -1,9 +1,10 @@
-#include "Entities/administrador.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 #include <time.h>
+#include "administrador.h"
 
 
 // Retorna tamanho do funcionario em bytes
@@ -49,7 +50,7 @@ TAdm *leAdministrador(FILE *in){
         free(adm);
         return NULL;
     }
-    fread(adm->base.nome, sizeof(char), sizeof(adm->base), in);
+    fread(adm->base.nome, sizeof(char), sizeof(adm->base.nome), in);
     fread(adm->base.cpf, sizeof(char), sizeof(adm->base.cpf), in);
     fread(adm->base.data_nascimento, sizeof(char), sizeof(adm->base.data_nascimento), in);
     fread(&adm->verificacao, sizeof(bool), 1, in);
@@ -59,7 +60,7 @@ TAdm *leAdministrador(FILE *in){
 // Imprime funcionario
 void imprimeAdministrador(TAdm *adm){
     printf("**********************************************");
-    printf("\nFuncionario de codigo ");
+    printf("\nAdministrador de codigo ");
     printf("%d", adm->codigo);
     printf("\nNome: ");
     printf("%s", adm->base.nome);

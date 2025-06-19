@@ -1,8 +1,8 @@
-#include "pessoa.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "pessoa.h"
 
 int calcularIdade(char *data_nascimento) {
     int dia, mes, ano;

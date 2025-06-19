@@ -1,11 +1,11 @@
-#include "Entities/administrador.h"
-#include "Entities/candidato.h"
-#include "Entities/eleitor.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <math.h>
 #include <time.h>
+#include "../Entities/administrador.h"
+#include "../Entities/candidato.h"
+#include "../Entities/eleitor.h"
 
 //Realiza uma busca binaria por um funcionario na base de dados
 
@@ -23,8 +23,8 @@ TAdm *buscaBinariaAdministrador(int chave, FILE *in, int inicio, int fim, FILE *
 
         int meio = trunc((inicio + fim) / 2);
         //printf("Inicio: %d; Fim: %d; Meio: %d\n", inicio, fim, meio);
-        fseek(in, (meio -1) * tamanho_registro(), SEEK_SET);
-        f = le(in);
+        fseek(in, (meio - 1) * tamanho_registro(), SEEK_SET);
+        f = leAdministrador(in);
         cod = f->codigo;
 
         cont ++;

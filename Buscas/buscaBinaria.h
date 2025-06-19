@@ -1,6 +1,6 @@
-#include "Entities/administrador.h"
-#include "Entities/candidato.h"
-#include "Entities/eleitor.h"
+#include "../Entities/administrador.h"
+#include "../Entities/candidato.h"
+#include "../Entities/eleitor.h"
 #ifndef BUSCABINARIA_H_INCLUDED
 #define BUSCABINARIA_H_INCLUDED
 

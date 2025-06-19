@@ -1,6 +1,6 @@
-#include "Entities/administrador.h"
-#include "Entities/candidato.h"
-#include "Entities/eleitor.h"
+#include "../Entities/administrador.h"
+#include "../Entities/candidato.h"
+#include "../Entities/eleitor.h"
 #ifndef BUSCASEQUENCIAL_H_INCLUDED
 #define BUSCASEQUENCIAL_H_INCLUDED
 

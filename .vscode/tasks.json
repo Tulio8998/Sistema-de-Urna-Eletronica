@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build and Run Urna Eletronica",
+            "type": "shell",
+            "command": "gcc -g -o ${workspaceFolder}\\urna.exe ${workspaceFolder}\\main.c ${workspaceFolder}\\Entities\\*.c ${workspaceFolder}\\Buscas\\*.c ${workspaceFolder}\\Util\\*.c; if ($?) { .\\urna.exe }",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }
+    ]
+}

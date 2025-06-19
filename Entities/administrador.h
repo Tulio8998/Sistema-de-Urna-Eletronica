@@ -1,10 +1,10 @@
 #ifndef ADMINISTRADOR_H
 #define ADMINISTRADOR_H
 
-#include "pessoa.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "pessoa.h"
 
 typedef struct {
     TPessoa base;
@@ -30,5 +30,7 @@ void criarBaseAdministrador(FILE *out, int tam);
 void embaralhaAdministrador(int *vet, int tam);
 
 void imprimirBase(FILE *out);
+
+int tamanho_registro();
 
 #endif // ADMINISTRADOR_H_INCLUDED

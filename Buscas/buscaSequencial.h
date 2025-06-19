@@ -1,13 +1,13 @@
-#include "Entities/administrador.h"
-#include "Entities/candidato.h"
-#include "Entities/eleitor.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <time.h>
+#include "../Entities/administrador.h"
+#include "../Entities/candidato.h"
+#include "../Entities/eleitor.h"
 
 TAdm *buscaSequencialAdministrador(int chave, FILE *in, FILE *log) {
-    TAdm *f;
+    TAdm *a;
     int achou;
     int cont = 0;
     int inicio, fim;
@@ -17,11 +17,11 @@ TAdm *buscaSequencialAdministrador(int chave, FILE *in, FILE *log) {
 
     inicio = clock();
 
-    while ((f = leAdministrador(in)) != NULL){
+    while ((a = leAdministrador(in)) != NULL){
 
         cont ++;
 
-        if(f->codigo == chave){
+        if(a->codigo == chave){
            achou = 1;
            break;
         }
@@ -31,7 +31,7 @@ TAdm *buscaSequencialAdministrador(int chave, FILE *in, FILE *log) {
             fim = clock();
             total = (fim - inicio)/CLOCKS_PER_SEC;
             fprintf(log, "\nTempo Sequencial: %f ", total);
-            return f;
+            return a;
         }
 
         else {
@@ -42,12 +42,12 @@ TAdm *buscaSequencialAdministrador(int chave, FILE *in, FILE *log) {
             fprintf(log, "Tempo Sequencial: %d ", cont);
         }
 
-        free(f);
+        free(a);
 }
 
 /*
 TCandidato *buscaSequencialCandidato(int chave, FILE *in, FILE *log) {
-    TCandidato *f;
+    TCandidato *c;
     int achou;
     int cont = 0;
     int inicio, fim;
@@ -57,7 +57,7 @@ TCandidato *buscaSequencialCandidato(int chave, FILE *in, FILE *log) {
 
     inicio = clock();
 
-    while ((f = leAdministrador(in)) != NULL){
+    while ((c = leAdministrador(in)) != NULL){
 
         cont ++;
 
@@ -71,7 +71,7 @@ TCandidato *buscaSequencialCandidato(int chave, FILE *in, FILE *log) {
             fim = clock();
             total = (fim - inicio)/CLOCKS_PER_SEC;
             fprintf(log, "\nTempo Sequencial: %f ", total);
-            return f;
+            return c;
         }
 
         else {
@@ -82,11 +82,11 @@ TCandidato *buscaSequencialCandidato(int chave, FILE *in, FILE *log) {
             fprintf(log, "Tempo Sequencial: %d ", cont);
         }
 
-        free(f);
+        free(c);
 }
 
 TEleitor *buscaSequencialEleitor(int chave, FILE *in, FILE *log) {
-    TAdm *f;
+    TAdm *e;
     int achou;
     int cont = 0;
     int inicio, fim;
@@ -96,11 +96,11 @@ TEleitor *buscaSequencialEleitor(int chave, FILE *in, FILE *log) {
 
     inicio = clock();
 
-    while ((f = leAdministrador(in)) != NULL){
+    while ((e = leAdministrador(in)) != NULL){
 
         cont ++;
 
-        if(f->codigo == chave){
+        if(e->codigo == chave){
            achou = 1;
            break;
         }
@@ -110,7 +110,7 @@ TEleitor *buscaSequencialEleitor(int chave, FILE *in, FILE *log) {
             fim = clock();
             total = (fim - inicio)/CLOCKS_PER_SEC;
             fprintf(log, "\nTempo Sequencial: %f ", total);
-            return f;
+            return e;
         }
 
         else {
@@ -121,6 +121,6 @@ TEleitor *buscaSequencialEleitor(int chave, FILE *in, FILE *log) {
             fprintf(log, "Tempo Sequencial: %d ", cont);
         }
 
-        free(f);
+        free(e);
 }
 */
