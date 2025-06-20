@@ -5,10 +5,12 @@
 #include <math.h>
 #include <time.h>
 #include "administrador.h"
+#include "candidato.h"
+#include "eleitor.h"
 
 
 // Retorna tamanho do funcionario em bytes
-int tamanho_registro(){
+int tamanho_registro_administrador(){
     return sizeof(int)  //cod
            + sizeof(char) * 50 //nome
            + sizeof(char) * 15 //cpf
@@ -40,7 +42,7 @@ void salvaAdministrador(TAdm *adm, FILE *out){
 
 int tamanho_arquivo_administrador(FILE *arq){
     fseek(arq, 0, SEEK_END);
-    int tam = trunc(ftell(arq) / tamanho_registro());
+    int tam = trunc(ftell(arq) / tamanho_registro_administrador());
     return tam;
 }
 
@@ -109,7 +111,7 @@ void embaralhaAdministrador(int *vet, int tam){
         vet[j] = tmp;
     }
 }
-
+/*
 void shuffle(int *vet,int MAX,int MIN) {
     srand(time(NULL));
     for (int i = MAX - MIN - 1; i > 0; i--) {
@@ -119,8 +121,9 @@ void shuffle(int *vet,int MAX,int MIN) {
         vet[i] = tmp;
     }
 }
+*/
 
-void imprimirBase(FILE *out){
+void imprimirBaseAdministrador(FILE *out){
     printf("\nImprimindo a base de dados...\n");
 
     rewind(out);
@@ -133,7 +136,7 @@ void imprimirBase(FILE *out){
 
 }
 
-int compara(TAdm *c1, TAdm *c2)
+int comparaAdministrador(TAdm *c1, TAdm *c2)
 {
 	if (c1 == NULL) {
 		return (c2 == NULL);

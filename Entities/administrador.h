@@ -29,8 +29,8 @@ void criarBaseAdministrador(FILE *out, int tam);
 // Embaralha a base de dados
 void embaralhaAdministrador(int *vet, int tam);
 
-void imprimirBase(FILE *out);
+void imprimirBaseAdministrador(FILE *out);
 
-int tamanho_registro();
+int tamanho_registro_administrador();
 
 #endif // ADMINISTRADOR_H_INCLUDED

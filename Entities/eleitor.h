@@ -14,4 +14,22 @@ typedef struct {
     char zona[5];
 } TEleitor;
 
-#endif // ELEITOR_H_INCLUDED
+TEleitor *eleitor(int codigo, char *nome, char *cpf, char *data_nascimento, char *titulo, char *secao, char* zona);
+
+void salvaEleitor(TEleitor *eleitor, FILE *out);
+
+int tamanho_arquivo_eleitor(FILE *arq);
+
+TEleitor *leEleitor(FILE *in);
+
+void imprimeEleitor(TEleitor *eleitor);
+
+int tamanho_registro_eleitor();
+
+void criarBaseEleitor(FILE *out, int tam);
+
+void embaralhaEleitor(int *vet, int tam);
+
+void imprimirBaseEleitor(FILE *out);
+
+#endif // ELEITOR_H

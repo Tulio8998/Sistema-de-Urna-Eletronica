@@ -1,8 +1,8 @@
+#ifndef BUSCABINARIA_H_INCLUDED
+#define BUSCABINARIA_H_INCLUDED
 #include "../Entities/administrador.h"
 #include "../Entities/candidato.h"
 #include "../Entities/eleitor.h"
-#ifndef BUSCABINARIA_H_INCLUDED
-#define BUSCABINARIA_H_INCLUDED
 
 
 //Realiza uma busca BINARIA por um funcionario na base de dados
