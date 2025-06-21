@@ -1,0 +1,7 @@
+
+Comparacoes Sequencial (Admin): 1 
+Tempo Sequencial (Admin): 0.000000 
+Comparacoes Sequencial (Candidato): 2 
+Tempo Sequencial (Candidato): 0.000000 
+Comparacoes Sequencial (Eleitor): 5 
+Tempo Sequencial (Eleitor): 0.000000 
