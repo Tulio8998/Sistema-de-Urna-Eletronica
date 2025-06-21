@@ -82,38 +82,20 @@ void criarBaseAdministrador(FILE *out, int tam){
 
     for(int i=0;i<tam;i++)
         vet[i] = i+1;
-    
-    //embaralha(vet,tam);
 
+    shuffleAdministrador(vet, tam, 0);
     printf("\nGerando a base de dados...\n");
 
     for (int i=0;i<tam;i++){
         a = administrador(vet[i], "A", "000.000.000-00", "01/01/1980", true);
         salvaAdministrador(a, out);
+        free(a);
     }
 
-    free(a);
 }
 
 // Embaralha a base de dados
-void embaralhaAdministrador(int *vet, int tam){
-    int tmp;
-
-    srand(time(NULL));
-
-    int trocas = (tam*60)/100;
-
-    for (int t = 1; t<trocas; t++) {
-        int i = rand() % tam;
-        int j = rand() % tam;
-        tmp = vet[i];
-        vet[i] = vet[j];
-        vet[j] = tmp;
-    }
-}
-/*
-void shuffle(int *vet,int MAX,int MIN) {
-    srand(time(NULL));
+void shuffleAdministrador(int *vet,int MAX,int MIN) {
     for (int i = MAX - MIN - 1; i > 0; i--) {
         int j = rand() % (i);
         int tmp = vet[j];
@@ -121,19 +103,15 @@ void shuffle(int *vet,int MAX,int MIN) {
         vet[i] = tmp;
     }
 }
-*/
 
 void imprimirBaseAdministrador(FILE *out){
     printf("\nImprimindo a base de dados...\n");
-
     rewind(out);
     TAdm *a;
-
-    while ((a = leAdministrador(out)) != NULL)
+    while ((a = leAdministrador(out)) != NULL) {
         imprimeAdministrador(a);
-
-    free(a);
-
+        free(a);
+    } 
 }
 
 int comparaAdministrador(TAdm *c1, TAdm *c2)

@@ -27,7 +27,7 @@ void imprimeAdministrador(TAdm *adm);
 void criarBaseAdministrador(FILE *out, int tam);
 
 // Embaralha a base de dados
-void embaralhaAdministrador(int *vet, int tam);
+void shuffleAdministrador(int *vet,int MAX,int MIN);
 
 void imprimirBaseAdministrador(FILE *out);
 
