@@ -26,7 +26,7 @@ void imprimeCandidato(TCandidato *cand);
 
 int tamanho_registro_candidato();
 
-void embaralhaCandidato(int *vet, int tam);
+void shuffleCandidato(int *vet,int MAX,int MIN);
 
 void criarBaseCandidato(FILE *out, int tam);
 

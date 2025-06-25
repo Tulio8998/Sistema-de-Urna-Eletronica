@@ -1,13 +1,15 @@
+
 {
+    // TÚLIO
     "version": "2.0.0",
     "tasks": [
         {
-            // Um nome geral para a tarefa
             "label": "Build & Run Project (Universal)",
 
             // --- SEÇÃO PARA WINDOWS ---
             // Este bloco só será usado se o VS Code estiver rodando no Windows
             "windows": {
+<<<<<<< HEAD
                 "command": "gcc",
                 "args": [
                     "-g",
@@ -29,14 +31,18 @@
                     "isDefault": true
                 },
                 "problemMatcher": ["$gcc"]},
+=======
+                "command": "gcc -g -o ${workspaceFolder}\\urna.exe ${workspaceFolder}\\main.c ${workspaceFolder}\\Entities\\*.c ${workspaceFolder}\\Buscas\\*.c ${workspaceFolder}\\Util\\*.c ${workspaceFolder}\\Ordenacao\\*.c; if ($?) { .\\urna.exe }",
+            },
+>>>>>>> 0965bb0fd751de8902e2fe8c40b03b85e8793bd6
 
             // --- SEÇÃO PARA LINUX (e macOS) ---
             // Este bloco só será usado no Linux ou macOS
             "linux": {
-                "command": "gcc -g -o ${workspaceFolder}/urna.exe ${workspaceFolder}/main.c ${workspaceFolder}/Entities/*.c ${workspaceFolder}/Buscas/*.c ${workspaceFolder}/Util/*.c && ${workspaceFolder}/urna.exe",
+                "command": "gcc -g -o ${workspaceFolder}/urna.exe ${workspaceFolder}/main.c ${workspaceFolder}/Entities/*.c ${workspaceFolder}/Buscas/*.c ${workspaceFolder}/Util/*.c ${workspaceFolder}/Ordenacao/*.c && ${workspaceFolder}/urna.exe",
             },
             "osx": {
-                "command": "gcc -g -o ${workspaceFolder}/urna.exe ${workspaceFolder}/main.c ${workspaceFolder}/Entities/*.c ${workspaceFolder}/Buscas/*.c ${workspaceFolder}/Util/*.c && ${workspaceFolder}/urna.exe",
+                "command": "gcc -g -o ${workspaceFolder}/urna.exe ${workspaceFolder}/main.c ${workspaceFolder}/Entities/*.c ${workspaceFolder}/Buscas/*.c ${workspaceFolder}/Util/*.c ${workspaceFolder}/Ordenacao/*.c && ${workspaceFolder}/urna.exe",
             },
 
             "type": "shell",
@@ -54,3 +60,53 @@
         }
     ]
 }
+
+/*
+{
+    // SAMUEL
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build & Run C Project",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            // --- Definição para WINDOWS ---
+            "windows": {
+                // 1. Comando de Compilação
+                "command": "gcc",
+                "args": [
+                    "-g",                   // Inclui informações de debug
+                    "-o", "urna.exe",       // Arquivo de saída
+                    // Arquivos-fonte:
+                    "main.c",
+                    "Entities/pessoa.c",
+                    "Entities/administrador.c",
+                    "Entities/candidato.c",
+                    "Entities/eleitor.c",
+                    "Buscas/buscaSequencial.c",
+                    "Buscas/buscaBinaria.c",
+                    "Ordenacao/quickSort.c",
+                    "Ordenacao/classificacaoInterna.c"
+                    // Adicione "Util/util.c" se ele tiver código a ser compilado
+                ]
+            },
+            // --- Definição para LINUX & macOS ---
+            "linux": {
+                 "command": "gcc -g -o urna main.c Entities/*.c Buscas/*.c Ordenacao/*.c && ./urna"
+            },
+             "osx": {
+                 "command": "gcc -g -o urna main.c Entities/*.c Buscas/*.c Ordenacao/*.c && ./urna"
+            }
+        }
+    ]
+}*/

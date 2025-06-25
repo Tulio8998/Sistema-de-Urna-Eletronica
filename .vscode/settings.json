@@ -6,6 +6,8 @@
         "administrador.h": "c",
         "string.h": "c",
         "stdlib.h": "c",
-        "stdio.h": "c"
-    }
+        "stdio.h": "c",
+        "classificacaointerna.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

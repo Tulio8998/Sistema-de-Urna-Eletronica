@@ -26,9 +26,9 @@ void imprimeEleitor(TEleitor *eleitor);
 
 int tamanho_registro_eleitor();
 
-void criarBaseEleitor(FILE *out, int tam);
+void shuffleEleitor(int *vet,int MAX,int MIN);
 
-void embaralhaEleitor(int *vet, int tam);
+void criarBaseEleitor(FILE *out, int tam);
 
 void imprimirBaseEleitor(FILE *out);
 

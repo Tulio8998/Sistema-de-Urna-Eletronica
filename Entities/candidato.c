@@ -76,36 +76,18 @@ void criarBaseCandidato(FILE *out, int tam) {
     for(int i=0;i<tam;i++)
         vet[i] = i+1;
     
-    //embaralha(vet,tam);
-
+    shuffleCandidato(vet, tam, 0);
     printf("\nGerando a base de dados...\n");
 
     for (int i=0;i<tam;i++){
         c = candidato(vet[i], "A", "000.000.000-00", "01/01/1980", "nenhum", "nenhum");
         salvaCandidato(c, out);
+        free(c);
     }
 
-    free(c);
 }
 
-void embaralhaCandidato(int *vet, int tam){
-    int tmp;
-
-    srand(time(NULL));
-
-    int trocas = (tam*60)/100;
-
-    for (int t = 1; t<trocas; t++) {
-        int i = rand() % tam;
-        int j = rand() % tam;
-        tmp = vet[i];
-        vet[i] = vet[j];
-        vet[j] = tmp;
-    }
-}
-/*
-void shuffle(int *vet,int MAX,int MIN) {
-    srand(time(NULL));
+void shuffleCandidato(int *vet,int MAX,int MIN) {
     for (int i = MAX - MIN - 1; i > 0; i--) {
         int j = rand() % (i);
         int tmp = vet[j];
@@ -113,14 +95,14 @@ void shuffle(int *vet,int MAX,int MIN) {
         vet[i] = tmp;
     }
 }
-*/
+
 void imprimirBaseCandidato(FILE *out) {
     printf("\nImprimindo a base de dados de Candidatos...\n");
     rewind(out);
-    TCandidato *cand;
-    while ((cand = leCandidato(out)) != NULL) {
-        imprimeCandidato(cand);
-        free(cand);
+    TCandidato *c;
+    while ((c = leCandidato(out)) != NULL) {
+        imprimeCandidato(c);
+        free(c);
     }
 }
 

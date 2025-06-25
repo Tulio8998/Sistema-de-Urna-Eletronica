@@ -81,35 +81,20 @@ void criarBaseEleitor(FILE *out, int tam) {
     for(int i=0;i<tam;i++)
         vet[i] = i+1;
     
-    //embaralha(vet,tam);
+    shuffleEleitor(vet, tam, 0); 
 
     printf("\nGerando a base de dados...\n");
 
     for (int i=0;i<tam;i++){
         e = eleitor(vet[i], "A", "000.000.000-00", "01/01/1980", "00.00.00", "00", "000");
         salvaEleitor(e, out);
+        free(e);
     }
-
-    free(e);
+    
 }
 
-void embaralhaEleitor(int *vet, int tam){
-    int tmp;
 
-    srand(time(NULL));
-
-    int trocas = (tam*60)/100;
-
-    for (int t = 1; t<trocas; t++) {
-        int i = rand() % tam;
-        int j = rand() % tam;
-        tmp = vet[i];
-        vet[i] = vet[j];
-        vet[j] = tmp;
-    }
-}
-/*
-void shuffle(int *vet,int MAX,int MIN) {
+void shuffleEleitor(int *vet,int MAX,int MIN) {
     srand(time(NULL));
     for (int i = MAX - MIN - 1; i > 0; i--) {
         int j = rand() % (i);
@@ -118,14 +103,14 @@ void shuffle(int *vet,int MAX,int MIN) {
         vet[i] = tmp;
     }
 }
-*/
+
 void imprimirBaseEleitor(FILE *out) {
     printf("\nImprimindo a base de dados de Eleitores...\n");
     rewind(out);
-    TEleitor *eleit;
-    while ((eleit = leEleitor(out)) != NULL) {
-        imprimeEleitor(eleit);
-        free(eleit);
+    TEleitor *e;
+    while ((e= leEleitor(out)) != NULL) {
+        imprimeEleitor(e);
+        free(e);
     }
 }
 
