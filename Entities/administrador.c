@@ -20,7 +20,12 @@ int tamanho_registro_administrador(){
 TAdm *administrador(int codigo, char *nome, char *cpf, char *data_nascimento, bool verificacao){
     TAdm *ATAdm = (TAdm *) malloc(sizeof(TAdm));
     //inicializa espaco de memoria com ZEROS
-    if (ATAdm) memset(ATAdm, 0, sizeof(TAdm));
+    // Procura uma região válida da memória para o ponteiro ATAdm
+    if (ATAdm) memset(ATAdm, 0, sizeof(TAdm)); 
+    else {
+        printf("Erro ao alocar memoria para o administrador\n");
+        return NULL;
+    }
     //copia valores para os campos de ATAdm
     ATAdm->codigo = codigo;
     strcpy(ATAdm->base.nome, nome);
@@ -51,7 +56,7 @@ void inicializar_adm_padrao() {
 
 void salvaAdministrador(TAdm *adm, FILE *out){
     fwrite(&adm->codigo, sizeof(int), 1, out);
-    //adm->nome ao inves de &adm->nome, pois string ja eh um ponteiro
+    //adm->nome ao inves de &adm->nome, pois string ja é um ponteiro
     fwrite(adm->base.nome, sizeof(char), sizeof(adm->base.nome), out);
     fwrite(adm->base.cpf, sizeof(char), sizeof(adm->base.cpf), out);
     fwrite(adm->base.data_nascimento, sizeof(char), sizeof(adm->base.data_nascimento), out);
@@ -70,6 +75,7 @@ TAdm *leAdministrador(FILE *in){
         free(adm);
         return NULL;
     }
+    fread(adm, sizeof(TAdm), 1, in);
     fread(adm->base.nome, sizeof(char), sizeof(adm->base.nome), in);
     fread(adm->base.cpf, sizeof(char), sizeof(adm->base.cpf), in);
     fread(adm->base.data_nascimento, sizeof(char), sizeof(adm->base.data_nascimento), in);
@@ -98,13 +104,13 @@ void criarBaseAdministrador(FILE *out, int tam){
     int vet[tam];
     TAdm *a;
 
-    for(int i=0;i<tam;i++)
+    for(int i = 0; i < tam;  i++)
         vet[i] = i+1;
 
     shuffleAdministrador(vet, tam, 0);
     printf("\nGerando a base de dados...\n");
 
-    for (int i=1;i<tam;i++){
+    for (int i = 0;i < tam; i++){
         a = administrador(vet[i], "A", "000.000.000-00", "01/01/1980", true);
         salvaAdministrador(a, out);
         free(a);

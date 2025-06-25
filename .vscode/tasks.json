@@ -9,7 +9,7 @@
             // --- SEÇÃO PARA WINDOWS ---
             // Este bloco só será usado se o VS Code estiver rodando no Windows
             "windows": {
-                "command": "gcc -g -o ${workspaceFolder}\\urna.exe ${workspaceFolder}\\main.c ${workspaceFolder}\\Entities\\*.c ${workspaceFolder}\\Buscas\\*.c ${workspaceFolder}\\Util\\*.c ${workspaceFolder}\\Ordenacao\\*.c ${workspaceFolder}\\Menu\\*.c; if ($?) { .\\urna.exe }",
+                "command": "gcc -g -o ${workspaceFolder}\\urna.exe ${workspaceFolder}\\main.c ${workspaceFolder}\\Entities\\*.c ${workspaceFolder}\\Buscas\\*.c ${workspaceFolder}\\Util\\*.c ${workspaceFolder}\\Ordenacao\\*.c; if ($?) { .\\urna.exe }",
             },
 
             // --- SEÇÃO PARA LINUX (e macOS) ---
