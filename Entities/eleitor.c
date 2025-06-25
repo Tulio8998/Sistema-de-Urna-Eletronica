@@ -105,13 +105,29 @@ void shuffleEleitor(int *vet,int MAX,int MIN) {
 }
 
 void imprimirBaseEleitor(FILE *out) {
-    printf("\nImprimindo a base de dados de Eleitores...\n");
+    printf("\nImprimindo a base de dados de Eleitores...\n\n");
     rewind(out);
     TEleitor *e;
     while ((e= leEleitor(out)) != NULL) {
         imprimeEleitor(e);
         free(e);
     }
+}
+
+TEleitor* autenticar_eleitor(char* titulo) {
+    FILE* arq = fopen("Data/eleitores.dat", "rb");
+    if (arq == NULL) return NULL;
+
+    TEleitor *eleitor_lido;
+    while ((eleitor_lido = leEleitor(arq)) != NULL) {
+        if (strcmp(eleitor_lido->titulo_eleitor, titulo) == 0) {
+            fclose(arq);
+            return eleitor_lido;
+        }
+        free(eleitor_lido);
+    }
+    fclose(arq);
+    return NULL;
 }
 
 int comparaEleitor(TEleitor *c1, TEleitor *c2)

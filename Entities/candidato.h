@@ -7,8 +7,8 @@
 #include "pessoa.h"
 
 typedef struct {
-    TPessoa base;
     int codigo;
+    TPessoa base;
     char cargo[50];
     char partido[50];
 } TCandidato;

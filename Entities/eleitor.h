@@ -7,8 +7,8 @@
 #include "pessoa.h"
 
 typedef struct {
-    TPessoa base;
     int codigo;
+    TPessoa base;
     char titulo_eleitor[15];
     char secao[5];
     char zona[5];
@@ -31,5 +31,8 @@ void shuffleEleitor(int *vet,int MAX,int MIN);
 void criarBaseEleitor(FILE *out, int tam);
 
 void imprimirBaseEleitor(FILE *out);
+
+TEleitor* autenticar_eleitor(char* titulo);
+
 
 #endif // ELEITOR_H
