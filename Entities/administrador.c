@@ -71,11 +71,10 @@ int tamanho_arquivo_administrador(FILE *arq){
 
 TAdm *leAdministrador(FILE *in){
     TAdm *adm = (TAdm *) malloc(sizeof(TAdm));
-    if (0 >= fread(&adm->codigo, sizeof(int), 1, in)) {
+    if (fread(&adm->codigo, sizeof(int), 1, in) <= 0) {
         free(adm);
         return NULL;
     }
-    fread(adm, sizeof(TAdm), 1, in);
     fread(adm->base.nome, sizeof(char), sizeof(adm->base.nome), in);
     fread(adm->base.cpf, sizeof(char), sizeof(adm->base.cpf), in);
     fread(adm->base.data_nascimento, sizeof(char), sizeof(adm->base.data_nascimento), in);
