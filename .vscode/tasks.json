@@ -8,8 +8,27 @@
             // --- SEÇÃO PARA WINDOWS ---
             // Este bloco só será usado se o VS Code estiver rodando no Windows
             "windows": {
-                "command": "gcc -g -o ${workspaceFolder}\\urna.exe ${workspaceFolder}\\main.c ${workspaceFolder}\\Entities\\*.c ${workspaceFolder}\\Buscas\\*.c ${workspaceFolder}\\Util\\*.c; if ($?) { .\\urna.exe }",
-            },
+                "command": "gcc",
+                "args": [
+                    "-g",
+                    "-o", "urna.exe",
+                    "main.c",
+                    "Buscas/buscaBinaria.c",
+                    "Buscas/buscaSequencial.c",
+                    "Entities/administrador.c",
+                    "Entities/candidato.c",
+                    "Entities/eleitor.c",
+                    "Entities/pessoa.c",
+                    "Util/util.c"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                },
+                "problemMatcher": ["$gcc"]},
 
             // --- SEÇÃO PARA LINUX (e macOS) ---
             // Este bloco só será usado no Linux ou macOS

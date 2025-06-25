@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.ejs": "html",
+			"candidato.h": "c",
+			"eleitor.h": "c",
+			"administrador.h": "c",
+			"string.h": "c",
+			"stdlib.h": "c",
+			"stdio.h": "c"
+		}
+	}
+}
