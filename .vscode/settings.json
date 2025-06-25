@@ -7,7 +7,9 @@
         "string.h": "c",
         "stdlib.h": "c",
         "stdio.h": "c",
-        "classificacaointerna.h": "c"
+        "classificacaointerna.h": "c",
+        "intercalacao.h": "c",
+        "buscabinaria.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
