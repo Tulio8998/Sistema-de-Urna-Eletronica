@@ -5,118 +5,114 @@
 #include <time.h>
 #include "buscaBinaria.h"
 
-//Realiza uma busca binaria por um funcionario na base de dados
-
 TAdm *buscaBinariaAdministrador(int chave, FILE *in, int inicio, int fim, FILE *log) {
     TAdm *a = NULL;
-    int cod = -1;
     int cont = 0;
     int inicioT, fimT;
     double total;
 
     inicioT = clock();
 
-    while (inicio <= fim && cod != chave) {
+    while (inicio <= fim) {
+        int meio = inicio + (fim - inicio) / 2;
+        fseek(in, meio * tamanho_registro_administrador(), SEEK_SET);
 
-        int meio = trunc((inicio + fim) / 2);
-        //printf("Inicio: %d; Fim: %d; Meio: %d\n", inicio, fim, meio);
-        fseek(in, (meio - 1) * tamanho_registro_administrador(), SEEK_SET);
+        if (a != NULL) {
+            free(a);
+        }
         a = leAdministrador(in);
-        cod = a->codigo;
+        cont++;
 
-        cont ++;
+        if (a == NULL) {
+            return NULL;
+        }
 
-        if (a) {
-            if (cod > chave) {
-                fim = meio - 1;
-            } else {
-                inicio = meio + 1;
+        if (a->codigo < chave) {
+            inicio = meio + 1;
+        } else if (a->codigo > chave) {
+            fim = meio - 1;
+        } else {
+            if (log) {
+                fprintf(log, "\nComparacoes Binaria (Admin): %d ", cont);
+                fimT = clock();
+                total = (double)(fimT - inicioT) / CLOCKS_PER_SEC;
+                fprintf(log, "\nTempo Binaria (Admin): %f ", total);
             }
+            return a;
         }
     }
-
-    if (cod == chave) {
-        fprintf(log, "\nComparacoes Binaria: %d ", cont);
-        fimT = clock();
-        total = (fimT - inicioT) / CLOCKS_PER_SEC;
-        fprintf(log, "\nTempo Binaria: %f ", total);
-        return a;
+    if (a != NULL) {
+        free(a);
     }
-    else return NULL;
+    return NULL;
 }
 
 TCandidato *buscaBinariaCandidato(int chave, FILE *in, int inicio, int fim, FILE *log) {
     TCandidato *c = NULL;
-    int cod = -1;
     int cont = 0;
     int inicioT, fimT;
     double total;
 
     inicioT = clock();
 
-    while (inicio <= fim && cod != chave) {
-
-        int meio = trunc((inicio + fim) / 2);
-        //printf("Inicio: %d; Fim: %d; Meio: %d\n", inicio, fim, meio);
-        fseek(in, (meio - 1) * tamanho_registro_candidato(), SEEK_SET);
+    while (inicio <= fim) {
+        int meio = inicio + (fim - inicio) / 2;
+        fseek(in, meio * tamanho_registro_candidato(), SEEK_SET);
+        if (c != NULL) free(c);
         c = leCandidato(in);
-        cod = c->codigo;
+        cont++;
 
-        cont ++;
+        if (c == NULL) return NULL;
 
-        if (c) {
-            if (cod > chave) {
-                fim = meio - 1;
-            } else {
-                inicio = meio + 1;
+        if (c->codigo < chave) {
+            inicio = meio + 1;
+        } else if (c->codigo > chave) {
+            fim = meio - 1;
+        } else {
+            if (log) {
+                fprintf(log, "\nComparacoes Binaria (Candidato): %d ", cont);
+                fimT = clock();
+                total = (double)(fimT - inicioT) / CLOCKS_PER_SEC;
+                fprintf(log, "\nTempo Binaria (Candidato): %f ", total);
             }
+            return c;
         }
     }
-
-    if (cod == chave) {
-        fprintf(log, "\nComparacoes Binaria: %d ", cont);
-        fimT = clock();
-        total = (fimT - inicioT) / CLOCKS_PER_SEC;
-        fprintf(log, "\nTempo Binaria: %f ", total);
-        return c;
-    }
-    else return NULL;
+    if (c != NULL) free(c);
+    return NULL;
 }
 
 TEleitor *buscaBinariaEleitor(int chave, FILE *in, int inicio, int fim, FILE *log) {
     TEleitor *e = NULL;
-    int cod = -1;
     int cont = 0;
     int inicioT, fimT;
     double total;
 
     inicioT = clock();
 
-    while (inicio <= fim && cod != chave) {
-
-        int meio = trunc((inicio + fim) / 2);
-        //printf("Inicio: %d; Fim: %d; Meio: %d\n", inicio, fim, meio);
-        fseek(in, (meio - 1) * tamanho_registro_eleitor(), SEEK_SET);
+    while (inicio <= fim) {
+        int meio = inicio + (fim - inicio) / 2;
+        fseek(in, meio * tamanho_registro_eleitor(), SEEK_SET);
+        if (e != NULL) free(e);
         e = leEleitor(in);
-        cod = e->codigo;
+        cont++;
 
-        cont ++;
+        if (e == NULL) return NULL;
 
-        if (e) {
-            if (cod > chave) {
-                fim = meio - 1;
-            } else {
-                inicio = meio + 1;
+        if (e->codigo < chave) {
+            inicio = meio + 1;
+        } else if (e->codigo > chave) {
+            fim = meio - 1;
+        } else {
+            if (log) {
+                fprintf(log, "\nComparacoes Binaria (Eleitor): %d ", cont);
+                fimT = clock();
+                total = (double)(fimT - inicioT) / CLOCKS_PER_SEC;
+                fprintf(log, "\nTempo Binaria (Eleitor): %f ", total);
             }
+            return e;
         }
     }
-
-    if (cod == chave) {
-        fprintf(log, "\nComparacoes Binaria: %d ", cont);
-        fimT = clock();
-        total = (fimT - inicioT) / CLOCKS_PER_SEC;
-        fprintf(log, "\nTempo Binaria: %f ", total);
-        return e;
-    }
-    else return NULL;
+    if (e != NULL) free(e);
+    return NULL;
 }
