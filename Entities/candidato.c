@@ -5,6 +5,8 @@
 #include <math.h>
 #include <time.h>
 #include "candidato.h"
+#include "../Util/util.h"
+
 
 int tamanho_registro_candidato() {
     return sizeof(int)          // codigo
@@ -71,20 +73,17 @@ void imprimeCandidato(TCandidato *cand) {
 
 void criarBaseCandidato(FILE *out, int tam) {
     int vet[tam];
-    TCandidato *c;
+    TCandidato c;
 
     for(int i=0;i<tam;i++)
         vet[i] = i+1;
     
     shuffleCandidato(vet, tam, 0);
-    printf("\nGerando a base de dados...\n");
 
     for (int i=0;i<tam;i++){
-        c = candidato(vet[i], "A", "000.000.000-00", "01/01/1980", "nenhum", "nenhum");
-        salvaCandidato(c, out);
-        free(c);
+        c = generateRandomUserCand(vet[i]);
+        salvaCandidato(&c, out);
     }
-
 }
 
 void shuffleCandidato(int *vet,int MAX,int MIN) {

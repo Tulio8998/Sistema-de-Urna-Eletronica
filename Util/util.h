@@ -21,6 +21,18 @@ void gerarCargo(char *dest, size_t size);
 void gerarPartido(char *dest, size_t size);
 
 // Gera um candidato aleatório
-TCandidato generateRandomUser(void);
+TCandidato generateRandomUserCand(int condigo);
+
+TEleitor generateRandomUserElei(int condigo);
+
+void gerarCPF(char *cpf);
+
+void gerarData(char *data);
+
+void gerarSecao(char *secao);
+
+void gerarZona(char *zona);
+
+void gerarTitulo(char *titulo);
 
 #endif // UTIL_H

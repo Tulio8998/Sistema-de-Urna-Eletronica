@@ -49,13 +49,13 @@ void init_random() {
     }
 }
 
-static void gerarNome(char *dest, size_t size) {
+void gerarNome(char *dest, size_t size) {
     int first = rand() % (sizeof(FIRST_NAMES)/sizeof(FIRST_NAMES[0]));
     int last = rand() % (sizeof(LAST_NAMES)/sizeof(LAST_NAMES[0]));
     snprintf(dest, size, "%s %s", FIRST_NAMES[first], LAST_NAMES[last]);
 }
 
-static void gerarCargo(char *dest, size_t size) {
+void gerarCargo(char *dest, size_t size) {
     int pesos[] = {95, 90, 70, 20, 5};
     int totalPeso = 0;
     for (int i = 0; i < 5; i++) totalPeso += pesos[i];
@@ -73,18 +73,57 @@ static void gerarCargo(char *dest, size_t size) {
     dest[size-1] = '\0';
 }
 
-static void gerarPartido(char *dest, size_t size) {
+void gerarPartido(char *dest, size_t size) {
     int idx = rand() % (sizeof(PARTIDOS)/sizeof(PARTIDOS[0]));
     strncpy(dest, PARTIDOS[idx], size-1);
     dest[size-1] = '\0';
 }
 
-TCandidato generateRandomUser() {
-    init_random();
+void gerarCPF(char *cpf) {
+    int i;
+    int numeros[11];
+
+    for (i = 0; i < 11; i++) {
+        numeros[i] = rand() % 10;
+    }
+
+    sprintf(cpf, "%d%d%d.%d%d%d.%d%d%d-%d%d",
+            numeros[0], numeros[1], numeros[2],
+            numeros[3], numeros[4], numeros[5],
+            numeros[6], numeros[7], numeros[8],
+            numeros[9],numeros[10]);
+}
+
+void gerarData(char *data) {
+    int dia = 1 + rand() % 28;   
+    int mes = 1 + rand() % 12;
+    int ano = 1970 + rand() % 30;  
+
+    sprintf(data, "%02d/%02d/%d", dia, mes, ano);
+}
+
+void gerarSecao(char *secao) {
+    int sec = 1 + rand() % 50;   
+    sprintf(secao, "%d", sec);
+}
+
+void gerarZona(char *zona) {
+    int zon = 1 + rand() % 50;   
+    sprintf(zona, "%d", zon);
+}
+
+void gerarTitulo(char *titulo) {
+    int tit = 1000 + rand() % 9999;   
+    sprintf(titulo, "%d", tit);
+}
+
+TCandidato generateRandomUserCand(int codigo) {
     TCandidato c;
-    c.codigo = 0;
+    c.codigo = codigo;
     gerarNome(c.base.nome, sizeof(c.base.nome));
     gerarCargo(c.cargo, sizeof(c.cargo));
+    gerarCPF(c.base.cpf);
+    gerarData(c.base.data_nascimento);
     if (strcmp(c.cargo, "CIVIL") == 0) {
         c.partido[0] = '\0';
     } else {
@@ -92,3 +131,15 @@ TCandidato generateRandomUser() {
     }
     return c;
 }      
+
+TEleitor generateRandomUserElei(int codigo) {
+    TEleitor e;
+    e.codigo = codigo;
+    gerarNome(e.base.nome, sizeof(e.base.nome));
+    gerarTitulo(e.titulo_eleitor);
+    gerarSecao(e.secao);
+    gerarZona(e.zona);
+    gerarCPF(e.base.cpf);
+    gerarData(e.base.data_nascimento);
+    return e;
+}   

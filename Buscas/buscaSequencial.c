@@ -42,7 +42,7 @@ TAdm *buscaSequencialAdministrador(int chave, FILE *in, FILE *log) {
 
 TCandidato *buscaSequencialCandidato(int chave, FILE *in, FILE *log) {
     TCandidato *c = NULL;
-    int achou = 0; // CORREÇÃO: Variável inicializada
+    int achou = 0;
     int cont = 0;
     int inicio, fim;
     double total;

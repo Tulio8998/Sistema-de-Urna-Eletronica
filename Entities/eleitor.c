@@ -5,6 +5,7 @@
 #include <math.h>
 #include <time.h>
 #include "eleitor.h"
+#include "../Util/util.h"
 
 int tamanho_registro_eleitor() {
     return sizeof(int)          // codigo
@@ -76,21 +77,17 @@ void imprimeEleitor(TEleitor *eleit) {
 
 void criarBaseEleitor(FILE *out, int tam) {
     int vet[tam];
-    TEleitor *e;
+    TEleitor e;
 
     for(int i=0;i<tam;i++)
         vet[i] = i+1;
     
     shuffleEleitor(vet, tam, 0); 
 
-    printf("\nGerando a base de dados...\n");
-
     for (int i=0;i<tam;i++){
-        e = eleitor(vet[i], "A", "000.000.000-00", "01/01/1980", "00.00.00", "00", "000");
-        salvaEleitor(e, out);
-        free(e);
+        e = generateRandomUserElei(vet[i]);
+        salvaEleitor(&e, out);
     }
-    
 }
 
 
