@@ -124,11 +124,7 @@ TCandidato generateRandomUserCand(int codigo) {
     gerarCargo(c.cargo, sizeof(c.cargo));
     gerarCPF(c.base.cpf);
     gerarData(c.base.data_nascimento);
-    if (strcmp(c.cargo, "CIVIL") == 0) {
-        c.partido[0] = '\0';
-    } else {
-        gerarPartido(c.partido, sizeof(c.partido));
-    }
+    gerarPartido(c.partido, sizeof(c.partido));
     return c;
 }      
 
