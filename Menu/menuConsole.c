@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include "menuConsole.h"
 #include "menuAdm.h"
 #include "menuEleitor.h"
