@@ -24,6 +24,11 @@ void iniciar_menu_adm(TAdm *adm_logado) {
         printf("0. Deslogar\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao1);
+        getchar();
+        if (opcao1 != 1 && opcao1 != 2 && opcao1 != 3 && opcao1 != 4 && opcao1 != 5 && opcao1 != 6 && opcao1 != 0){
+            printf("Opcao invalida. Tente novamente.\n");
+            continue;
+        }
 
         switch (opcao1) {
             case 1: {
@@ -110,6 +115,11 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                         printf("0. Voltar\n");
                         printf("Escolha o tipo de busca: ");
                         scanf("%d", &opcao_busca);
+                        getchar();
+                        if (opcao_busca != 1 && opcao_busca != 2 && opcao_busca != 0){
+                            printf("Opcao invalida. Tente novamente.\n");
+                            continue;
+                        }
                         if (opcao_busca == 0) break;
 
                         printf("Digite o código do eleitor a ser buscado: ");
@@ -210,6 +220,11 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                     printf("0. Voltar\n");
                     printf("Escolha uma opção: ");
                     scanf("%d", &opcao_candidato);
+                     if (opcao_candidato != 1 && opcao_candidato != 2 && opcao_candidato != 3 && opcao_candidato != 4 
+                         && opcao_candidato != 5 && opcao_candidato != 6 && opcao_candidato != 0){
+                        printf("Opcao invalida. Tente novamente.\n");
+                        continue;
+                    }
 
                     switch (opcao_candidato) {
                         case 1: {
@@ -278,6 +293,10 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                             printf("0. Voltar\n");
                             printf("Escolha o tipo de busca: ");
                             scanf("%d", &opcao_busca);
+                             if (opcao_busca != 1 && opcao_busca != 2 && opcao_busca != 0){
+                                printf("Opcao invalida. Tente novamente.\n");
+                                continue;
+                            }
 
                             if (opcao_busca == 0) break;
 
@@ -380,6 +399,11 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                     printf("0. Voltar\n");
                     printf("Escolha uma opção: ");
                     scanf("%d", &opcao_adm);
+                     if (opcao_adm != 1 && opcao_adm != 2 && opcao_adm != 3 && opcao_adm != 4 && opcao_adm
+                         != 5 && opcao_adm != 6 && opcao_adm != 0){
+                        printf("Opcao invalida. Tente novamente.\n");
+                        continue;
+                    }
 
                     switch (opcao_adm) {
                         case 1: {
@@ -450,6 +474,10 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                             printf("0. Voltar\n");
                             printf("Escolha o tipo de busca: ");
                             scanf("%d", &opcao_busca);
+                             if (opcao_busca != 1 && opcao_busca != 2 && opcao_busca != 0){
+                                printf("Opcao invalida. Tente novamente.\n");
+                                continue;
+                            }
 
                             if (opcao_busca == 0) break;
 

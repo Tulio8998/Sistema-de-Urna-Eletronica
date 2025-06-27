@@ -17,6 +17,10 @@ void iniciar_menu_eleitor(TEleitor *eleitor_logado) {
         printf("0. Deslogar\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
+         if (opcao != 1 && opcao != 2 && opcao != 0){
+            printf("Opcao invalida. Tente novamente.\n");
+            continue;
+        }
 
         switch (opcao) {
             case 1: {
