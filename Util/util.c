@@ -125,6 +125,7 @@ TCandidato generateRandomUserCand(int codigo) {
     gerarCPF(c.base.cpf);
     gerarData(c.base.data_nascimento);
     gerarPartido(c.partido, sizeof(c.partido));
+    c.voto = 0;
     return c;
 }      
 

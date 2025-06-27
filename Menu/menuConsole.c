@@ -9,7 +9,9 @@
 void iniciar_menu_console() {
     int opcao;
     do {
-        printf("\n\nSISTEMA DE URNA ELETRONICA\n");
+        printf("======================================================");
+        printf("\n\tSISTEMA DE URNA ELETRONICA");
+        printf("\n======================================================\n");
         printf("1. Login como Administrador\n");
         printf("2. Login como Eleitor\n");
         printf("0. Sair do Sistema\n");
@@ -39,7 +41,7 @@ void iniciar_menu_console() {
                 iniciar_menu_eleitor(eleitor);
                 free(eleitor);
             } else {
-                printf("Titulo de eleitor não encontrado.\n");
+                printf("Titulo de eleitor não encontrado.\n\n");
             }
         }
 

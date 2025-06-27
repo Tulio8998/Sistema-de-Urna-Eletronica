@@ -9,25 +9,25 @@
 
 
 int tamanho_registro_candidato() {
-    return sizeof(int)          // codigo
-           + sizeof(char) * 50  // nome
-           + sizeof(char) * 15  // cpf
-           + sizeof(char) * 11  // data_nascimento
-           + sizeof(char) * 50  // cargo
-           + sizeof(char) * 50; // partido
+    return sizeof(int)         
+           + sizeof(char) * 50 
+           + sizeof(char) * 15  
+           + sizeof(char) * 11 
+           + sizeof(char) * 50 
+           + sizeof(char) * 50;
+           + sizeof(int);
 }
 
 TCandidato *candidato(int codigo, char *nome, char *cpf, char *data_nascimento, char *cargo, char *partido) {
     TCandidato *cand = (TCandidato *) malloc(sizeof(TCandidato));
     if (cand) memset(cand, 0, sizeof(TCandidato));
-    
     cand->codigo = codigo;
     strcpy(cand->base.nome, nome);
     strcpy(cand->base.cpf, cpf);
     strcpy(cand->base.data_nascimento, data_nascimento);
     strcpy(cand->cargo, cargo);
     strcpy(cand->partido, partido);
-    
+    cand->voto = 0;
     return cand;
 }
 
@@ -38,6 +38,7 @@ void salvaCandidato(TCandidato *cand, FILE *out) {
     fwrite(cand->base.data_nascimento, sizeof(char), sizeof(cand->base.data_nascimento), out);
     fwrite(cand->cargo, sizeof(char), sizeof(cand->cargo), out);
     fwrite(cand->partido, sizeof(char), sizeof(cand->partido), out);
+    fwrite(&cand->voto, sizeof(int), 1, out);
 }
 
 int tamanho_arquivo_candidato(FILE *arq){
@@ -57,18 +58,30 @@ TCandidato *leCandidato(FILE *in) {
     fread(cand->base.data_nascimento, sizeof(char), sizeof(cand->base.data_nascimento), in);
     fread(cand->cargo, sizeof(char), sizeof(cand->cargo), in);
     fread(cand->partido, sizeof(char), sizeof(cand->partido), in);
+    fread(&cand->voto, sizeof(int), 1, in);
     return cand;
 }
 
 void imprimeCandidato(TCandidato *cand) {
-    printf("**********************************************\n");
+    printf("__________________________________________________\n");
     printf("Candidato de codigo: %d\n", cand->codigo);
     printf("Nome: %s\n", cand->base.nome);
     printf("CPF: %s\n", cand->base.cpf);
     printf("Data de Nascimento: %s\n", cand->base.data_nascimento);
     printf("Cargo: %s\n", cand->cargo);
     printf("Partido: %s\n", cand->partido);
-    printf("**********************************************\n");
+    printf("Votos: %d\n", cand->voto);
+    printf("__________________________________________________\n");
+}
+
+void imprimeCandidatoParaEleitor(TCandidato *cand) {
+    printf("__________________________________________________\n");
+    printf("Candidato de codigo: %d\n", cand->codigo);
+    printf("Nome: %s\n", cand->base.nome);
+    printf("Data de Nascimento: %s\n", cand->base.data_nascimento);
+    printf("Cargo: %s\n", cand->cargo);
+    printf("Partido: %s\n", cand->partido);
+    printf("__________________________________________________\n");
 }
 
 void criarBaseCandidato(FILE *out, int tam) {
@@ -101,6 +114,16 @@ void imprimirBaseCandidato(FILE *out) {
     TCandidato *c;
     while ((c = leCandidato(out)) != NULL) {
         imprimeCandidato(c);
+        free(c);
+    }
+}
+
+void imprimirBaseCandidatoParaEleitor(FILE *out) {
+    printf("\nImprimindo a base de dados de Candidatos...\n");
+    rewind(out);
+    TCandidato *c;
+    while ((c = leCandidato(out)) != NULL) {
+        imprimeCandidatoParaEleitor(c);
         free(c);
     }
 }

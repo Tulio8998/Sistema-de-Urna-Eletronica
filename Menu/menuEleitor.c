@@ -2,13 +2,16 @@
 #include <stdlib.h>
 #include "menuEleitor.h"
 #include "../Entities/candidato.h"
+#include "../Votos/votacao.h"
 
 void iniciar_menu_eleitor(TEleitor *eleitor_logado) {
     int opcao;
     printf("\nBem-vindo, Eleitor %s!", eleitor_logado->base.nome);
 
     do {
-        printf("\n\n--- Menu do Eleitor ---\n");
+        printf("\n\n======================================================");
+        printf("\n\tMENU ELEITOR");
+        printf("\n======================================================\n");
         printf("1. Visualizar Candidatos\n");
         printf("2. Votar\n");
         printf("0. Deslogar\n");
@@ -21,13 +24,13 @@ void iniciar_menu_eleitor(TEleitor *eleitor_logado) {
                 if (arq == NULL) {
                     printf("Nenhum candidato cadastrado.\n");
                 } else {
-                    imprimirBaseCandidato(arq);
+                    imprimirBaseCandidatoParaEleitor(arq);
                     fclose(arq);
                 }
                 break;
             }
             case 2:
-                printf("Função de votar a ser implementada.\n");
+                votacao();
                 break;
             case 0:
                 printf("Deslogando...\n");

@@ -9,7 +9,8 @@
         "stdio.h": "c",
         "classificacaointerna.h": "c",
         "intercalacao.h": "c",
-        "buscabinaria.h": "c"
+        "buscabinaria.h": "c",
+        "buscasequencial.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

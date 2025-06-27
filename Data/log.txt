@@ -25,3 +25,7 @@ Comparacoes Binaria (Candidato): 3
 Tempo Binaria (Candidato): 0.000024 
 Comparacoes Sequencial (Eleitor): 2 
 Tempo Sequencial (Eleitor): 0.000046 
+Comparacoes Sequencial (Eleitor): 1353 
+Tempo Sequencial (Eleitor): 0.000000 
+Comparacoes Binaria (Eleitor): 13 
+Tempo Binaria (Eleitor): 0.000000 

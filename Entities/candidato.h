@@ -11,6 +11,7 @@ typedef struct {
     TPessoa base;
     char cargo[50];
     char partido[50];
+    int voto;
 } TCandidato;
 
 
@@ -24,6 +25,8 @@ TCandidato *leCandidato(FILE *in);
 
 void imprimeCandidato(TCandidato *cand);
 
+void imprimeCandidatoParaEleitor(TCandidato *cand);
+
 int tamanho_registro_candidato();
 
 void shuffleCandidato(int *vet,int MAX,int MIN);
@@ -31,5 +34,7 @@ void shuffleCandidato(int *vet,int MAX,int MIN);
 void criarBaseCandidato(FILE *out, int tam);
 
 void imprimirBaseCandidato(FILE *out);
+
+void imprimirBaseCandidatoParaEleitor(FILE *out);
 
 #endif // CANDIDATO_H

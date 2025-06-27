@@ -8,13 +8,13 @@
 #include "../Util/util.h"
 
 int tamanho_registro_eleitor() {
-    return sizeof(int)          // codigo
-           + sizeof(char) * 50  // nome
-           + sizeof(char) * 15  // cpf
-           + sizeof(char) * 11  // data_nascimento
-           + sizeof(char) * 15  // titulo_eleitor
-           + sizeof(char) * 5   // secao
-           + sizeof(char) * 5;  // zona
+    return sizeof(int)         
+           + sizeof(char) * 50 
+           + sizeof(char) * 15  
+           + sizeof(char) * 11  
+           + sizeof(char) * 15  
+           + sizeof(char) * 5   
+           + sizeof(char) * 5;  
 }
 
 TEleitor *eleitor(int codigo, char *nome, char *cpf, char *data_nascimento, char *titulo, char *secao, char* zona) {
@@ -64,7 +64,7 @@ TEleitor *leEleitor(FILE *in) {
 }
 
 void imprimeEleitor(TEleitor *eleit) {
-    printf("**********************************************\n");
+    printf("__________________________________________________\n");
     printf("Eleitor de codigo: %d\n", eleit->codigo);
     printf("Nome: %s\n", eleit->base.nome);
     printf("CPF: %s\n", eleit->base.cpf);
@@ -72,7 +72,7 @@ void imprimeEleitor(TEleitor *eleit) {
     printf("Titulo de Eleitor: %s\n", eleit->titulo_eleitor);
     printf("Secao: %s\n", eleit->secao);
     printf("Zona: %s\n", eleit->zona);
-    printf("**********************************************\n");
+    printf("__________________________________________________\n");
 }
 
 void criarBaseEleitor(FILE *out, int tam) {
@@ -102,7 +102,7 @@ void shuffleEleitor(int *vet,int MAX,int MIN) {
 }
 
 void imprimirBaseEleitor(FILE *out) {
-    printf("\nImprimindo a base de dados de Eleitores...\n\n");
+    printf("\nImprimindo a base de dados de Eleitores...\n");
     rewind(out);
     TEleitor *e;
     while ((e= leEleitor(out)) != NULL) {

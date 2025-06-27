@@ -7,17 +7,20 @@
 #include "../Buscas/buscaSequencial.h"
 #include "../Buscas/buscaBinaria.h"
 #include "../Ordenacao/quickSortEmDisco.h"
+#include "../Votos/votacao.h"
 
 void iniciar_menu_adm(TAdm *adm_logado) {
     int opcao1;
-    printf("\nBem-vindo, Administrador %s!", adm_logado->base.nome);
+    printf("\n\nBem-vindo, Administrador %s!\n", adm_logado->base.nome);
 
     do {
-        printf("\n\nMenu do Administrador\n");
-        printf("1. Gerenciar Eleitores\n");
-        printf("2. Gerenciar Candidatos\n");
-        printf("3. Gerenciar Administradores\n");
-        printf("4. Gerar Relatórios\n");
+        printf("======================================================");
+        printf("\n\tMENU ADMINISTRADOR");
+        printf("\n======================================================\n");
+        printf("1. Gerenciar Eleitores");
+        printf("\t3. Gerenciar Administradores\n");
+        printf("2. Gerenciar Candidatos");
+        printf("\t4. Gerar Relatórios\n");
         printf("0. Deslogar\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao1);
@@ -26,14 +29,16 @@ void iniciar_menu_adm(TAdm *adm_logado) {
             case 1: {
                 int opcao; 
                 do {    
-                    printf("GERENCIADOR DE ELEITORES\n");
-                    printf("1. Adicionar Eleitor\n");
-                    printf("2. Editar Eleitor\n");
-                    printf("3. Remover Eleitor\n");
-                    printf("4. Imprimir todos os Eleitores\n");
-                    printf("5. Pesquisar Eleitor...\n");
-                    printf("6. Preparar arquivo para busca rápida (Ordenar)\n");
-                    printf("0. Voltar ao Menu Principal\n");
+                    printf("\n======================================================");
+                    printf("\n\tGERENCIADOR DE ELEITORES");
+                    printf("\n======================================================\n");
+                    printf("1. Adicionar Eleitor");
+                    printf("\t4. Imprimir todos os Eleitores\n");
+                    printf("2. Editar Eleitor");
+                    printf("\t5. Pesquisar Eleitor...\n");
+                    printf("3. Remover Eleitor");
+                    printf("\t6. Preparar arquivo para busca rápida (Ordenar)\n");
+                    printf("0. Voltar\n");
                     printf("Escolha uma opção: ");
                     scanf("%d", &opcao);
                     switch (opcao) {
@@ -100,8 +105,8 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                         FILE *log_busca = fopen("Data/log.txt", "a");
 
                         printf("\nPesquisa de Eleitores\n");
-                        printf("1. Busca Sequencial (lenta, mas sempre funciona)\n");
-                        printf("2. Busca Binária (rápida, requer arquivo ordenado)\n");
+                        printf("1. Busca Sequencial\n");
+                        printf("2. Busca Binária (requer arquivo ordenado)\n");
                         printf("0. Voltar\n");
                         printf("Escolha o tipo de busca: ");
                         scanf("%d", &opcao_busca);
@@ -182,7 +187,7 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                         break;
                     }
                     case 0:
-                        printf("Saindo...");
+                        printf("Retornando...\n\n");
                         break;
                     default:
                         break;
@@ -193,13 +198,15 @@ void iniciar_menu_adm(TAdm *adm_logado) {
             case 2: {
                 int opcao_candidato;
                 do {
-                    printf("\nGerenciador de Candidatos\n");
-                    printf("1. Adicionar Candidato\n");
-                    printf("2. Editar Candidato\n");
-                    printf("3. Remover Candidato\n");
-                    printf("4. Listar Todos os Candidatos\n");
-                    printf("5. Pesquisar Candidato...\n");
-                    printf("6. Preparar arquivo para busca rápida (Ordenar)\n");
+                    printf("\n======================================================");
+                    printf("\n\tGERENCIADOR DE CANDIDATOS");
+                    printf("\n======================================================\n");
+                    printf("1. Adicionar Candidato");
+                    printf("\t4. Listar Todos os Candidatos\n");
+                    printf("2. Editar Candidato");
+                    printf("\t5. Pesquisar Candidato...\n");
+                    printf("3. Remover Candidato");
+                    printf("\t6. Preparar arquivo para busca rápida (Ordenar)\n");
                     printf("0. Voltar\n");
                     printf("Escolha uma opção: ");
                     scanf("%d", &opcao_candidato);
@@ -349,7 +356,7 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                             break;
                         }
                         case 0:
-                            printf("Retornando ao menu principal...\n");
+                            printf("Retornando...\n\n");
                             break;
                         default:
                             printf("Opção inválida!\n");
@@ -361,13 +368,15 @@ void iniciar_menu_adm(TAdm *adm_logado) {
             case 3: {
                 int opcao_adm;
                 do {
-                    printf("\nGerenciador de Administradores\n");
-                    printf("1. Adicionar Administrador\n");
-                    printf("2. Editar Administrador\n");
-                    printf("3. Remover Administrador\n");
-                    printf("4. Listar Todos os Administradores\n");
-                    printf("5. Pesquisar Administrador...\n");
-                    printf("6. Preparar arquivo para busca rápida (Ordenar)\n");
+                    printf("\n======================================================");
+                    printf("\n\tGERENCIADOR DE ADMINISTRADORES");
+                    printf("\n======================================================\n");
+                    printf("1. Adicionar Administrador");
+                    printf("\t4. Listar Todos os Administradores\n");
+                    printf("2. Editar Administrador");
+                    printf("\t\t5. Pesquisar Administrador...\n");
+                    printf("3. Remover Administrador");
+                    printf("\t6. Preparar arquivo para busca rápida (Ordenar)\n");
                     printf("0. Voltar\n");
                     printf("Escolha uma opção: ");
                     scanf("%d", &opcao_adm);
@@ -520,7 +529,7 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                             break;
                         }
                         case 0:
-                            printf("Retornando ao menu principal...\n");
+                            printf("Retornando...\n\n");
                             break;
                         default:
                             printf("Opção inválida!\n");
@@ -530,7 +539,7 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                 break;
             }
             case 4:
-                printf("Não fiz\n");
+                gerar_relatorio();
                 break;
             case 0:
                 printf("Deslogando...\n");

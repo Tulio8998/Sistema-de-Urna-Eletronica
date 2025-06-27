@@ -8,25 +8,21 @@
 #include "candidato.h"
 #include "eleitor.h"
 
-// Retorna tamanho do funcionario em bytes
 int tamanho_registro_administrador(){
-    return sizeof(int)  //cod
-           + sizeof(char) * 50 //nome
-           + sizeof(char) * 15 //cpf
-           + sizeof(char) * 11 //data_nascimento
-           + sizeof(bool); //verificacao
+    return sizeof(int)
+           + sizeof(char) * 50
+           + sizeof(char) * 15
+           + sizeof(char) * 11
+           + sizeof(bool);
 }
 
 TAdm *administrador(int codigo, char *nome, char *cpf, char *data_nascimento, bool verificacao){
     TAdm *ATAdm = (TAdm *) malloc(sizeof(TAdm));
-    //inicializa espaco de memoria com ZEROS
-    // Procura uma região válida da memória para o ponteiro ATAdm
     if (ATAdm) memset(ATAdm, 0, sizeof(TAdm)); 
     else {
         printf("Erro ao alocar memoria para o administrador\n");
         return NULL;
     }
-    //copia valores para os campos de ATAdm
     ATAdm->codigo = codigo;
     strcpy(ATAdm->base.nome, nome);
     strcpy(ATAdm->base.cpf, cpf);
@@ -56,7 +52,6 @@ void inicializar_adm_padrao() {
 
 void salvaAdministrador(TAdm *adm, FILE *out){
     fwrite(&adm->codigo, sizeof(int), 1, out);
-    //adm->nome ao inves de &adm->nome, pois string ja é um ponteiro
     fwrite(adm->base.nome, sizeof(char), sizeof(adm->base.nome), out);
     fwrite(adm->base.cpf, sizeof(char), sizeof(adm->base.cpf), out);
     fwrite(adm->base.data_nascimento, sizeof(char), sizeof(adm->base.data_nascimento), out);
@@ -82,9 +77,8 @@ TAdm *leAdministrador(FILE *in){
     return adm;
 }
 
-// Imprime funcionario
 void imprimeAdministrador(TAdm *adm){
-    printf("**********************************************");
+    printf("__________________________________________________");
     printf("\nAdministrador de codigo ");
     printf("%d", adm->codigo);
     printf("\nNome: ");
@@ -95,10 +89,9 @@ void imprimeAdministrador(TAdm *adm){
     printf("%s", adm->base.data_nascimento);
     printf("\nVerificacao: ");
     printf("%s", adm->verificacao ? "Ativo" : "Inativo");
-    printf("\n**********************************************");
+    printf("\n__________________________________________________\n");
 }
 
-// Criar a base de dados
 void criarBaseAdministrador(FILE *out, int tam){
     int vet[tam];
     TAdm *a;
@@ -117,7 +110,6 @@ void criarBaseAdministrador(FILE *out, int tam){
 
 }
 
-// Embaralha a base de dados
 void shuffleAdministrador(int *vet,int MAX,int MIN) {
     for (int i = MAX - MIN - 1; i > 0; i--) {
         int j = rand() % (i);

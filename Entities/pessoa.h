@@ -10,8 +10,4 @@ typedef struct Pessoa {
     char data_nascimento[11];
 } TPessoa;
 
-int calcularIdade(char *data_nascimento);
-
-int ehMaiorIdade(char *data_nascimento);
-
 #endif // PESSOA_H_INCLUDED

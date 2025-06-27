@@ -24,13 +24,10 @@ int tamanho_arquivo_administrador(FILE *arq);
 
 TAdm *leAdministrador(FILE *in);
 
-// Imprime funcionario
 void imprimeAdministrador(TAdm *adm);
 
-// Criar a base de dados
 void criarBaseAdministrador(FILE *out, int tam);
 
-// Embaralha a base de dados
 void shuffleAdministrador(int *vet,int MAX,int MIN);
 
 void imprimirBaseAdministrador(FILE *out);
