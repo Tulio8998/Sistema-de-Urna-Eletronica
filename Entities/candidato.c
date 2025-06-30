@@ -14,7 +14,7 @@ int tamanho_registro_candidato() {
            + sizeof(char) * 15  
            + sizeof(char) * 11 
            + sizeof(char) * 50 
-           + sizeof(char) * 50;
+           + sizeof(char) * 50
            + sizeof(int);
 }
 

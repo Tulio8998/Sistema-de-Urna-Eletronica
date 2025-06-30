@@ -4,9 +4,6 @@
 #include "../Entities/candidato.h"
 #include "../Entities/eleitor.h"
 
-
-//Realiza uma busca BINARIA por um funcionario na base de dados
-
 TAdm *buscaBinariaAdministrador(int chave, FILE *in, int inicio, int fim, FILE *log);
 
 TCandidato *buscaBinariaCandidato(int chave, FILE *in, int inicio, int fim, FILE *log);

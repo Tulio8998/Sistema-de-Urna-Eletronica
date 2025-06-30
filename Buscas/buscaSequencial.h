@@ -4,9 +4,6 @@
 #include "../Entities/candidato.h"
 #include "../Entities/eleitor.h"
 
-
-//Realiza uma busca sequencial por um funcionario na base de dados
-
 TAdm *buscaSequencialAdministrador(int chave, FILE *in, FILE *log);
 
 TCandidato *buscaSequencialCandidato(int chave, FILE *in, FILE *log);

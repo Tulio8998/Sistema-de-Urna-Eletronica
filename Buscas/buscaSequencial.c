@@ -18,10 +18,8 @@ TAdm *buscaSequencialAdministrador(int chave, FILE *in, FILE *log) {
         cont++;
         if (a->codigo == chave) {
             achou = 1;
-            break; // Encontrou, sai do loop
+            break;
         }
-        // CORREÇÃO: Se não encontrou, libera a memória do registro atual
-        // antes de ler o próximo, evitando vazamento de memória.
         free(a);
     }
 
@@ -30,12 +28,9 @@ TAdm *buscaSequencialAdministrador(int chave, FILE *in, FILE *log) {
         fim = clock();
         total = (double)(fim - inicio) / CLOCKS_PER_SEC;
         fprintf(log, "\nTempo Sequencial (Admin): %f ", total);
-        // O ponteiro 'a' é retornado. A memória NÃO é liberada aqui.
         return a;
     } else {
         printf("Administrador nao encontrado.\n");
-        // Não é preciso fazer free(a) aqui, porque se o loop terminou,
-        // o último 'a' já foi liberado na iteração anterior.
         return NULL;
     }
 }
