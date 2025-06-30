@@ -241,6 +241,7 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                             scanf(" %[^\n]", novo_candidato.cargo);
                             printf("Digite o Partido: "); 
                             scanf(" %[^\n]", novo_candidato.partido);
+                            novo_candidato.voto = 0;
                             adicionar_candidato(&novo_candidato);
                             break;
                         }
