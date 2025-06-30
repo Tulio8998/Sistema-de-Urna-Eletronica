@@ -15,7 +15,7 @@ int main() {
     if (arq_cand == NULL) {
         arq_cand = fopen("Data/candidatos.dat", "wb");
         if (arq_cand != NULL) {
-            criarBaseCandidato(arq_cand, 10);
+            criarBaseCandidato(arq_cand, 1000);
             fclose(arq_cand);
         }
     } else {
@@ -26,7 +26,7 @@ int main() {
     if (arq_elei == NULL) {
         arq_elei = fopen("Data/eleitores.dat", "wb");
         if (arq_elei != NULL) {
-            criarBaseEleitor(arq_elei, 10);
+            criarBaseEleitor(arq_elei, 1000);
             fclose(arq_elei);
         }
     } else {
