@@ -2,6 +2,7 @@
 #include "Util/util.h"
 #include "Menu/menuConsole.h"
 #include "Entities/administrador.h"
+#include "Selecao/selecaoSubstituicao.h"
 
 int main() {
 
@@ -13,12 +14,15 @@ int main() {
 
     FILE *arq_cand = fopen("Data/candidatos.dat", "rb");
     if (arq_cand == NULL) {
-        arq_cand = fopen("Data/candidatos.dat", "wb");
+        arq_cand = fopen("Data/candidatos.dat", "w+b");
         if (arq_cand != NULL) {
             criarBaseCandidato(arq_cand, 1000);
-            fclose(arq_cand);
+            selecaoPorSubstituicao(arq_cand);
         }
     } else {
+        selecaoPorSubstituicao(arq_cand);
+    }
+    if (arq_cand != NULL) {
         fclose(arq_cand);
     }
 
@@ -34,6 +38,8 @@ int main() {
     }
     
     inicializar_adm_padrao();
+    selecaoPorSubstituicao(arq_cand);
+    fclose(arq_cand);
     iniciar_menu_console();
         
     return 0;

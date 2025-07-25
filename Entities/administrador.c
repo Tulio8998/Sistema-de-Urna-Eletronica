@@ -61,6 +61,7 @@ void salvaAdministrador(TAdm *adm, FILE *out){
 int tamanho_arquivo_administrador(FILE *arq){
     fseek(arq, 0, SEEK_END);
     int tam = trunc(ftell(arq) / tamanho_registro_administrador());
+    rewind(arq);
     return tam;
 }
 
@@ -112,7 +113,7 @@ void criarBaseAdministrador(FILE *out, int tam){
 
 void shuffleAdministrador(int *vet,int MAX,int MIN) {
     for (int i = MAX - MIN - 1; i > 0; i--) {
-        int j = rand() % (i);
+        int j = rand() % (i + 1);
         int tmp = vet[j];
         vet[j] = vet[i];
         vet[i] = tmp;

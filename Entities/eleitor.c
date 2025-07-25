@@ -45,6 +45,7 @@ void salvaEleitor(TEleitor *eleit, FILE *out) {
 int tamanho_arquivo_eleitor(FILE *arq){
     fseek(arq, 0, SEEK_END);
     int tam = trunc(ftell(arq) / tamanho_registro_eleitor());
+    rewind(arq);
     return tam;
 }
 
@@ -94,7 +95,7 @@ void criarBaseEleitor(FILE *out, int tam) {
 void shuffleEleitor(int *vet,int MAX,int MIN) {
     srand(time(NULL));
     for (int i = MAX - MIN - 1; i > 0; i--) {
-        int j = rand() % (i);
+        int j = rand() % (i + 1);
         int tmp = vet[j];
         vet[j] = vet[i];
         vet[i] = tmp;

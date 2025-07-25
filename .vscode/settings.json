@@ -10,7 +10,8 @@
         "classificacaointerna.h": "c",
         "intercalacao.h": "c",
         "buscabinaria.h": "c",
-        "buscasequencial.h": "c"
+        "buscasequencial.h": "c",
+        "selecaosubstituicao.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
