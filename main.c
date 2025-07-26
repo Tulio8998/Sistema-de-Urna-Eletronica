@@ -3,6 +3,7 @@
 #include "Menu/menuConsole.h"
 #include "Entities/administrador.h"
 #include "Selecao/selecaoSubstituicao.h"
+#include "Intercalacao/arvoreVencedores.h"  
 
 int main() {
 
@@ -22,6 +23,7 @@ int main() {
     } else {
         selecaoPorSubstituicao(arq_cand);
     }
+
     if (arq_cand != NULL) {
         fclose(arq_cand);
     }
@@ -36,10 +38,9 @@ int main() {
     } else {
         fclose(arq_elei);
     }
-    
+
     inicializar_adm_padrao();
-    selecaoPorSubstituicao(arq_cand);
-    fclose(arq_cand);
+    intercalarArquivo();
     iniciar_menu_console();
         
     return 0;
