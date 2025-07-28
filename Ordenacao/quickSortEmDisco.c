@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "quickSortEmDisco.h"
+
+long long int comparacoes = 0;
+long long  int trocas = 0; 
 
 TAdm* leAdmPelaPosicao(FILE* in, int pos) {
     fseek(in, pos * tamanho_registro_administrador(), SEEK_SET);
@@ -83,13 +87,17 @@ int particionaCandNoDisco(FILE* arq, int esq, int dir) {
     int i = esq - 1;
     for (int j = esq; j < dir; j++) {
         TCandidato* cand_j = leCandPelaPosicao(arq, j);
+        comparacoes++;
+
         if (cand_j->codigo <= pivo->codigo) {
             i++;
             trocaCandNoDisco(arq, i, j);
+            trocas++;
         }
         free(cand_j);
     }
     trocaCandNoDisco(arq, i + 1, dir);
+    trocas++;
     free(pivo);
     return i + 1;
 }
@@ -102,11 +110,28 @@ void quickSortRecursivoCand(FILE* arq, int esq, int dir) {
     }
 }
 
-void quickSortEmDiscoCandidato(FILE *arq) {
+void quickSortEmDiscoCandidato(FILE *arq, FILE *log) {
+    comparacoes = 0;
+    trocas = 0; 
+
+    clock_t inicio = clock();
+
     int tam = tamanho_arquivo_candidato(arq);
     if (tam > 1) {
         quickSortRecursivoCand(arq, 0, tam - 1);
     }
+
+    clock_t fim = clock(); 
+    double tempo_gasto = (double)(fim - inicio) / CLOCKS_PER_SEC;
+
+    printf("Quick Sort finalizado\n"); 
+    fprintf(log, "\n--- Relatorio: Quick Sort em Disco ---\n");
+    fprintf(log, "Tamanho da Base de Dados: %d registros\n", tam);
+    fprintf(log, "Tempo de Execucao: %f segundos\n", tempo_gasto);
+    fprintf(log, "Numero de Comparacoes entre ID's: %lld\n", comparacoes);
+    fprintf(log, "Numero de Operacoes de Troca no Disco: %lld\n", trocas);
+    fprintf(log, "----------------------------------------\n");
+
 }
 
 TEleitor* leEleitorPelaPosicao(FILE* in, int pos) {

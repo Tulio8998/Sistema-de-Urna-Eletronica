@@ -1,9 +1,87 @@
 
-Comparacoes Binaria (Eleitor): 9 
-Tempo Binaria (Eleitor): 0.000123 
-Comparacoes Binaria (Eleitor): 6 
-Tempo Binaria (Eleitor): 0.000100 
-Comparacoes Binaria (Admin): 1 
-Tempo Binaria (Admin): 0.000031 
-Comparacoes Binaria (Candidato): 10 
-Tempo Binaria (Candidato): 0.000213 
+--- Relatorio: Quick Sort em Disco ---
+Tamanho da Base de Dados: 100 registros
+Tempo de Execucao: 0.013301 segundos
+Numero de Comparacoes entre ID's: 629
+Numero de Operacoes de Troca no Disco: 363
+----------------------------------------
+
+--- Relatorio: Selecao por Substituicao junto com Arvore ---
+Tamanho da Base de Dados: 100 registros
+Tempo de Execucao Total: 0.002295 segundos
+Particoes Geradas: 9
+Total de Comparacoes: 102
+Total de Leituras de Disco: 209
+Total de Escritas em Disco: 200
+--------------------------------------------------------
+
+--- Relatorio: Quick Sort em Disco ---
+Tamanho da Base de Dados: 100 registros
+Tempo de Execucao: 0.010064 segundos
+Numero de Comparacoes entre ID's: 644
+Numero de Operacoes de Troca no Disco: 428
+----------------------------------------
+
+--- Relatorio: Selecao por Substituicao junto com Arvore ---
+Tamanho da Base de Dados: 100 registros
+Tempo de Execucao Total: 0.002281 segundos
+Particoes Geradas: 9
+Total de Comparacoes: 102
+Total de Leituras de Disco: 209
+Total de Escritas em Disco: 200
+--------------------------------------------------------
+
+--- Relatorio: Quick Sort em Disco ---
+Tamanho da Base de Dados: 1000 registros
+Tempo de Execucao: 0.070054 segundos
+Numero de Comparacoes entre ID's: 10352
+Numero de Operacoes de Troca no Disco: 5455
+----------------------------------------
+
+--- Relatorio: Selecao por Substituicao junto com Arvore ---
+Tamanho da Base de Dados: 1000 registros
+Tempo de Execucao Total: 0.011904 segundos
+Particoes Geradas: 85
+Total de Comparacoes: 1078
+Total de Leituras de Disco: 2085
+Total de Escritas em Disco: 2000
+--------------------------------------------------------
+
+--- Relatorio: Quick Sort em Disco ---
+Tamanho da Base de Dados: 10000 registros
+Tempo de Execucao: 0.597963 segundos
+Numero de Comparacoes entre ID's: 155754
+Numero de Operacoes de Troca no Disco: 80190
+----------------------------------------
+
+--- Relatorio: Selecao por Substituicao junto com Arvore ---
+Tamanho da Base de Dados: 10000 registros
+Tempo de Execucao Total: 0.201969 segundos
+Particoes Geradas: 834
+Total de Comparacoes: 10827
+Total de Leituras de Disco: 20834
+Total de Escritas em Disco: 20000
+--------------------------------------------------------
+
+--- Relatorio: Quick Sort em Disco ---
+Tamanho da Base de Dados: 1000000 registros
+Tempo de Execucao: 100.571047 segundos
+Numero de Comparacoes entre ID's: 24516564
+Numero de Operacoes de Troca no Disco: 12641575
+----------------------------------------
+
+--- Relatorio: Quick Sort em Disco ---
+Tamanho da Base de Dados: 50000 registros
+Tempo de Execucao: 3.561817 segundos
+Numero de Comparacoes entre ID's: 890997
+Numero de Operacoes de Troca no Disco: 479319
+----------------------------------------
+
+--- Relatorio: Selecao por Substituicao junto com Arvore ---
+Tamanho da Base de Dados: 50000 registros
+Tempo de Execucao Total: 5.955331 segundos
+Particoes Geradas: 4179
+Total de Comparacoes: 54172
+Total de Leituras de Disco: 104179
+Total de Escritas em Disco: 100000
+--------------------------------------------------------

@@ -8,7 +8,7 @@
 
 void quickSortEmDiscoAdministrador(FILE *arq);
 
-void quickSortEmDiscoCandidato(FILE *arq);
+void quickSortEmDiscoCandidato(FILE *arq, FILE *log);
 
 void quickSortEmDiscoEleitor(FILE *arq);
 

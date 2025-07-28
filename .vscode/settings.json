@@ -11,7 +11,8 @@
         "intercalacao.h": "c",
         "buscabinaria.h": "c",
         "buscasequencial.h": "c",
-        "selecaosubstituicao.h": "c"
+        "selecaosubstituicao.h": "c",
+        "quicksortemdisco.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

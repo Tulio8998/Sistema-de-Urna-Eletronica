@@ -2,13 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <time.h>
 #include "../Entities/candidato.h"
 #include "../Buscas/buscaBinaria.h"
 #include "selecaoSubstituicao.h"
 #define M 6
 #define VAZIO -1
+long long int comparacoes_selecao = 0;
+long long int leituras_selecao = 0;
+long long int escritas_selecao = 0;
 
 void selecaoPorSubstituicao(FILE *arqEntrada) {
+    comparacoes_selecao = 0;
+    leituras_selecao = 0;
+    escritas_selecao = 0;
+
     rewind(arqEntrada);
     int numRegistrosTotal = tamanho_arquivo_candidato(arqEntrada);
     if (numRegistrosTotal == 0) {
@@ -22,6 +30,7 @@ void selecaoPorSubstituicao(FILE *arqEntrada) {
     for (int i = 0; i < M; i++) {
         if (!feof(arqEntrada)) {
             size_t lidos = fread(&memoria[i], sizeof(TCandidato), 1, arqEntrada);
+            leituras_selecao++;
             if (lidos == 1) {
                  registrosLidos++;
             } else {
@@ -66,11 +75,14 @@ void selecaoPorSubstituicao(FILE *arqEntrada) {
 
             TCandidato menorCandidato = memoria[codigoMenor];
             salvaCandidato(&menorCandidato, arqSaida);
+            escritas_selecao++;
             registrosEscritos++;
 
             if (registrosLidos < numRegistrosTotal) {
                 fread(&memoria[codigoMenor], sizeof(TCandidato), 1, arqEntrada);
+                leituras_selecao++;
                 registrosLidos++;
+                comparacoes_selecao++;
                 if (memoria[codigoMenor].codigo < menorCandidato.codigo) {
                     congelado[codigoMenor] = true;
                 }

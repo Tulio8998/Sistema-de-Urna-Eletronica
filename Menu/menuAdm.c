@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "menuAdm.h"
 #include "../Entities/administrador.h"
 #include "../Entities/candidato.h"     
@@ -7,7 +8,17 @@
 #include "../Buscas/buscaSequencial.h"
 #include "../Buscas/buscaBinaria.h"
 #include "../Ordenacao/quickSortEmDisco.h"
+#include "../Selecao/selecaoSubstituicao.h"
+#include "../Intercalacao/arvoreVencedores.h"
 #include "../Votos/votacao.h"
+extern long long int comparacoes_selecao;
+extern long long int leituras_selecao;
+extern long long int escritas_selecao;
+extern long long int comparacoes_arvore;
+extern long long int leituras_arvore;
+extern long long int escritas_arvore;
+extern int particoes_geradas;
+
 
 void iniciar_menu_adm(TAdm *adm_logado) {
     int opcao1;
@@ -130,7 +141,7 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                             if (!arq_seq) {
                                 printf("Erro ao abrir 'eleitores.dat'\n");
                             } else {
-                                TEleitor *encontrado = buscaSequencialEleitor(codigo_busca, arq_seq, log_busca);
+                                TEleitor *encontrado = buscaSequencialEleitor(codigo_busca, arq_seq);
                                 if (encontrado) {
                                     printf("Eleitor encontrado:\n");
                                     imprimeEleitor(encontrado);
@@ -146,7 +157,7 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                                 printf("Erro: 'eleitores_ordenado.dat' não existe. Use a opção 6 para criá-lo.\n");
                             } else {
                                 int tam = tamanho_arquivo_eleitor(arq_bin);
-                                TEleitor *encontrado = buscaBinariaEleitor(codigo_busca, arq_bin, 0, tam - 1, log_busca);
+                                TEleitor *encontrado = buscaBinariaEleitor(codigo_busca, arq_bin, 0, tam - 1);
                                 if (encontrado) {
                                     printf("Eleitor encontrado:\n");
                                     imprimeEleitor(encontrado);
@@ -216,12 +227,13 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                     printf("2. Editar Candidato");
                     printf("\t5. Pesquisar Candidato...\n");
                     printf("3. Remover Candidato");
-                    printf("\t6. Preparar arquivo para busca rápida (Ordenar)\n");
-                    printf("0. Voltar\n");
+                    printf("\t6. Preparar arquivo para busca rápida (Ordenar por QuickSort)\n");
+                    printf("0. Voltar");
+                    printf("\t\t7. Preparar arquivo para busca rápida (Ordenar por Selecao por Substituicao)\n");
                     printf("Escolha uma opção: ");
                     scanf("%d", &opcao_candidato);
                      if (opcao_candidato != 1 && opcao_candidato != 2 && opcao_candidato != 3 && opcao_candidato != 4 
-                         && opcao_candidato != 5 && opcao_candidato != 6 && opcao_candidato != 0){
+                         && opcao_candidato != 5 && opcao_candidato != 6 && opcao_candidato != 7 && opcao_candidato != 0){
                         printf("Opcao invalida. Tente novamente.\n");
                         continue;
                     }
@@ -309,7 +321,7 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                                 if (!arq_seq) {
                                     printf("Erro ao abrir 'candidatos.dat'\n");
                                 } else {
-                                    TCandidato *encontrado = buscaSequencialCandidato(codigo_busca, arq_seq, log_busca);
+                                    TCandidato *encontrado = buscaSequencialCandidato(codigo_busca, arq_seq);
                                     if (encontrado) {
                                         printf("Candidato encontrado:\n");
                                         imprimeCandidato(encontrado);
@@ -320,12 +332,30 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                                     fclose(arq_seq);
                                 }
                             } else if (opcao_busca == 2) {
-                                FILE *arq_bin = fopen("Data/candidatos_ordenado.dat", "rb");
+                                const char* file1 = "Data/candidatos_ordenado.dat";
+                                const char* file2 = "Data/saida.dat";
+                                const char* sorted_file = NULL;
+                                FILE *f = fopen(file1, "rb");
+                                if (f != NULL) {
+                                    sorted_file = file1;
+                                    fclose(f);
+                                } else {
+                                    f = fopen(file2, "rb");
+                                    if (f != NULL) {
+                                        sorted_file = file2;
+                                        fclose(f);
+                                    } else {
+                                        printf("Nenhum dos arquivos de ordenacao existe!\n");
+                                        break;
+                                    }
+                                }
+
+                                FILE *arq_bin = fopen(sorted_file, "rb");
                                 if (!arq_bin) {
-                                    printf("Erro: 'candidatos_ordenado.dat' não existe. Use a opção 6 para criá-lo.\n");
+                                    printf("Erro: %s não existe. Use a opção 6 ou 7 para cria-lo.\n", sorted_file);
                                 } else {
                                     int tam = tamanho_arquivo_candidato(arq_bin);
-                                    TCandidato *encontrado = buscaBinariaCandidato(codigo_busca, arq_bin, 0, tam - 1, log_busca);
+                                    TCandidato *encontrado = buscaBinariaCandidato(codigo_busca, arq_bin, 0, tam - 1);
                                     if (encontrado) {
                                         printf("Candidato encontrado:\n");
                                         imprimeCandidato(encontrado);
@@ -341,7 +371,14 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                         }
                         case 6: {
                             const char* original_file = "Data/candidatos.dat";
+                            const char* original_log = "Data/log.dat";
                             const char* sorted_file = "Data/candidatos_ordenado.dat";
+                            
+                            FILE *log = fopen("Data/log.txt", "a");
+                            if (log == NULL) {
+                                printf("Erro: Arquivo de origem '%s' nao encontrado.\n", original_log);
+                                break;
+                            }
 
                             FILE* arq_origem = fopen(original_file, "rb");
                             if (arq_origem == NULL) {
@@ -352,6 +389,7 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                             if (arq_destino == NULL) {
                                 printf("Erro: Nao foi possivel criar o arquivo de destino '%s'.\n", sorted_file);
                                 fclose(arq_origem);
+                                fclose(log);
                                 break;
                             }
 
@@ -370,9 +408,56 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                             }
 
                             printf("Iniciando ordenacao em disco de '%s'.\n", sorted_file);
-                            quickSortEmDiscoCandidato(arq_para_ordenar);  
+                            quickSortEmDiscoCandidato(arq_para_ordenar, log);  
                             fclose(arq_para_ordenar);
                             printf("Arquivo '%s' ordenado com sucesso.\n", sorted_file);
+                            fclose(log);
+                            break;
+                        }
+                        case 7: {
+                            printf("\nAVISO: A pasta 'Data/Particoes' sera limpa.\n");
+                            system("rm -f ./Data/Particoes/particao_*.dat"); // Linux
+                            //system("del Data\\Particoes\\particao_*.dat"); // Windows
+
+                            const char* original_file = "Data/candidatos.dat";
+                            FILE *log = fopen("Data/log.txt", "a");
+                            if (!log) {
+                                printf("Erro ao abrir log.\n");
+                                break;
+                            }
+
+                            FILE *arq_origem = fopen(original_file, "rb");
+                            if (!arq_origem) {
+                                printf("Erro ao abrir %s\n", original_file);
+                                fclose(log);
+                                break;
+                            }
+
+                            clock_t inicio = clock();
+                            
+                            int tam = tamanho_arquivo_candidato(arq_origem);
+                            selecaoPorSubstituicao(arq_origem);
+                            fclose(arq_origem);
+
+                            intercalarArquivo();
+
+                            clock_t fim = clock();
+                            double tempo_total = (double)(fim - inicio) / CLOCKS_PER_SEC;
+
+                            long long int total_comparacoes = comparacoes_selecao + comparacoes_arvore;
+                            long long int total_leituras = leituras_selecao + leituras_arvore;
+                            long long int total_escritas = escritas_selecao + escritas_arvore;
+
+                            fprintf(log, "\n--- Relatorio: Selecao por Substituicao junto com Arvore ---\n");
+                            fprintf(log, "Tamanho da Base de Dados: %d registros\n", tam);
+                            fprintf(log, "Tempo de Execucao Total: %f segundos\n", tempo_total);
+                            fprintf(log, "Particoes Geradas: %d\n", particoes_geradas);
+                            fprintf(log, "Total de Comparacoes: %lld\n", total_comparacoes);
+                            fprintf(log, "Total de Leituras de Disco: %lld\n", total_leituras);
+                            fprintf(log, "Total de Escritas em Disco: %lld\n", total_escritas);
+                            fprintf(log, "--------------------------------------------------------\n");
+                            printf("Ordenacao finalizada. Resultados salvos no log.\n");
+                            fclose(log);
                             break;
                         }
                         case 0:
@@ -490,7 +575,7 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                                 if (!arq_seq) {
                                     printf("Erro ao abrir 'administradores.dat'\n");
                                 } else {
-                                    TAdm *encontrado = buscaSequencialAdministrador(codigo_busca, arq_seq, log_busca);
+                                    TAdm *encontrado = buscaSequencialAdministrador(codigo_busca, arq_seq);
                                     if (encontrado) {
                                         printf("Administrador encontrado:\n");
                                         imprimeAdministrador(encontrado);
@@ -506,7 +591,7 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                                     printf("Erro: 'administradores_ordenado.dat' não existe. Use a opção 6 para criá-lo.\n");
                                 } else {
                                     int tam = tamanho_arquivo_administrador(arq_bin);
-                                    TAdm *encontrado = buscaBinariaAdministrador(codigo_busca, arq_bin, 0, tam - 1, log_busca);
+                                    TAdm *encontrado = buscaBinariaAdministrador(codigo_busca, arq_bin, 0, tam - 1);
                                     if (encontrado) {
                                         printf("Administrador encontrado:\n");
                                         imprimeAdministrador(encontrado);

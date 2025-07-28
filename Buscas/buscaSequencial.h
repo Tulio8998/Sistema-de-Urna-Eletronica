@@ -4,11 +4,11 @@
 #include "../Entities/candidato.h"
 #include "../Entities/eleitor.h"
 
-TAdm *buscaSequencialAdministrador(int chave, FILE *in, FILE *log);
+TAdm *buscaSequencialAdministrador(int chave, FILE *in);
 
-TCandidato *buscaSequencialCandidato(int chave, FILE *in, FILE *log);
+TCandidato *buscaSequencialCandidato(int chave, FILE *in);
 
-TEleitor *buscaSequencialEleitor(int chave, FILE *in, FILE *log);
+TEleitor *buscaSequencialEleitor(int chave, FILE *in);
 
 
 #endif // BUSCASEQUENCIAL_H_INCLUDED

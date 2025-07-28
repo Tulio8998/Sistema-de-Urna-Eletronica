@@ -2,9 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
+#include <time.h>
 #include "../Entities/candidato.h"
+#define MAX_PARTICOES 80000
+long long int comparacoes_arvore = 0;
+long long int leituras_arvore = 0;
+long long int escritas_arvore = 0;
+int particoes_geradas = 0;
 
-#define MAX_PARTICOES 100
 
 typedef struct celula {
     TCandidato *candidato;
@@ -24,8 +29,9 @@ TCel* criarInterTCel(TCel *esq, TCel *dir) {
     TCel *nova = (TCel *)malloc(sizeof(TCel));
     nova->esq = esq;
     nova->dir = dir;
-    nova->indiceParticao = (esq->candidato->voto <= dir->candidato->voto) ? esq->indiceParticao : dir->indiceParticao;
-    nova->candidato = (esq->candidato->voto <= dir->candidato->voto) ? esq->candidato : dir->candidato;
+    comparacoes_arvore++;
+    nova->indiceParticao = (esq->candidato->codigo <= dir->candidato->codigo) ? esq->indiceParticao : dir->indiceParticao;
+    nova->candidato = (esq->candidato->codigo <= dir->candidato->codigo) ? esq->candidato : dir->candidato;
     return nova;
 }
 
@@ -73,7 +79,7 @@ void atualizarArvore(TCel *raiz, int indice, TCandidato *novo) {
             raiz->candidato = raiz->esq->candidato;
             raiz->indiceParticao = raiz->esq->indiceParticao;
         } else {
-            if (raiz->esq->candidato->voto <= raiz->dir->candidato->voto) {
+            if (raiz->esq->candidato->codigo <= raiz->dir->candidato->codigo) {
                 raiz->candidato = raiz->esq->candidato;
                 raiz->indiceParticao = raiz->esq->indiceParticao;
             } else {
@@ -102,17 +108,21 @@ int buscarParticoes(char nomes[][100]) {
 }
 
 void intercalarArquivo() {
+    comparacoes_arvore = 0;
+    leituras_arvore = 0;
+    escritas_arvore = 0;
+    particoes_geradas = 0;
+
     char nomes[MAX_PARTICOES][100];
     FILE *particoes[MAX_PARTICOES];
     TCel *folhas[MAX_PARTICOES];
     int totalParticoes = buscarParticoes(nomes);
+    particoes_geradas = totalParticoes;
 
     if (totalParticoes == 0) {
         printf(" Nenhuma partição encontrada em ./Data/Particoes/\n");
         return;
     }
-
-    printf("\n Iniciando intercalação com árvore de vencedores...\n\n");
 
     for (int i = 0; i < totalParticoes; i++) {
         char path[150];
@@ -124,6 +134,7 @@ void intercalarArquivo() {
         }
 
         TCandidato *cand = leCandidato(particoes[i]);
+        leituras_arvore++;
         folhas[i] = criarFolha(cand, i);
     }
 
@@ -137,18 +148,13 @@ void intercalarArquivo() {
 
     int contador = 1;
     while (raiz != NULL && raiz->candidato != NULL) {
-        printf("%3d. Código: %d | Nome: %-20s | Cargo: %-12s | Partido: %-5s | Votos: %d\n",
-               contador++,
-               raiz->candidato->codigo,
-               raiz->candidato->base.nome,
-               raiz->candidato->cargo,
-               raiz->candidato->partido,
-               raiz->candidato->voto);
-
         salvaCandidato(raiz->candidato, saida);
+        escritas_arvore++;
 
         int idx = raiz->indiceParticao;
         TCandidato *proximo = leCandidato(particoes[idx]);
+        leituras_arvore++;
+
         if (proximo == NULL) {
             atualizarArvore(raiz, idx, NULL);
         } else {
@@ -165,6 +171,5 @@ void intercalarArquivo() {
         fclose(particoes[i]);
     }
     fclose(saida);
-
-    printf("\n Intercalação concluída. Arquivo final disponível em: ./Data/saida.dat\n\n");
+    
 }

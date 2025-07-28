@@ -13,18 +13,19 @@ int main() {
 
     init_random();
 
+    FILE *log = fopen("Data/log.txt", "a");
+    if (log == NULL) {
+        perror("Erro: Nao foi possivel criar o arquivo de log.");
+    }
+
     FILE *arq_cand = fopen("Data/candidatos.dat", "rb");
     if (arq_cand == NULL) {
         arq_cand = fopen("Data/candidatos.dat", "w+b");
         if (arq_cand != NULL) {
-            criarBaseCandidato(arq_cand, 1000);
-            selecaoPorSubstituicao(arq_cand);
+            criarBaseCandidato(arq_cand, 100000);
+            fclose(arq_cand);
         }
     } else {
-        selecaoPorSubstituicao(arq_cand);
-    }
-
-    if (arq_cand != NULL) {
         fclose(arq_cand);
     }
 
@@ -40,8 +41,8 @@ int main() {
     }
 
     inicializar_adm_padrao();
-    intercalarArquivo();
     iniciar_menu_console();
-        
+    fclose(log);
+
     return 0;
 }
