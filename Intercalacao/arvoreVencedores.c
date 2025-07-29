@@ -4,12 +4,11 @@
 #include <dirent.h>
 #include <time.h>
 #include "../Entities/candidato.h"
-#define MAX_PARTICOES 80000
+#define MAX_PARTICOES 15000
 long long int comparacoes_arvore = 0;
 long long int leituras_arvore = 0;
 long long int escritas_arvore = 0;
 int particoes_geradas = 0;
-
 
 typedef struct celula {
     TCandidato *candidato;

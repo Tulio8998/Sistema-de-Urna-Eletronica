@@ -22,7 +22,7 @@ int main() {
     if (arq_cand == NULL) {
         arq_cand = fopen("Data/candidatos.dat", "w+b");
         if (arq_cand != NULL) {
-            criarBaseCandidato(arq_cand, 100000);
+            criarBaseCandidato(arq_cand, 1000);
             fclose(arq_cand);
         }
     } else {

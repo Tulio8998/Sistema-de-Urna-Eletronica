@@ -85,3 +85,50 @@ Total de Comparacoes: 54172
 Total de Leituras de Disco: 104179
 Total de Escritas em Disco: 100000
 --------------------------------------------------------
+
+--- Relatorio: Quick Sort em Disco ---
+Tamanho da Base de Dados: 80000 registros
+Tempo de Execucao: 7.126387 segundos
+Numero de Comparacoes entre ID's: 1679281
+Numero de Operacoes de Troca no Disco: 891238
+----------------------------------------
+
+--- Relatorio: Selecao por Substituicao junto com Arvore ---
+Tamanho da Base de Dados: 80000 registros
+Tempo de Execucao Total: 20.927839 segundos
+Particoes Geradas: 6658
+Total de Comparacoes: 86651
+Total de Leituras de Disco: 166658
+Total de Escritas em Disco: 160000
+
+--- Relatorio: Quick Sort em Disco ---
+Tamanho da Base de Dados: 90000 registros
+Tempo de Execucao: 6.685203 segundos
+Numero de Comparacoes entre ID's: 1904001
+Numero de Operacoes de Troca no Disco: 933850
+----------------------------------------
+
+--- Relatorio: Selecao por Substituicao junto com Arvore ---
+Tamanho da Base de Dados: 90000 registros
+Tempo de Execucao Total: 25.552294 segundos
+Particoes Geradas: 7537
+Total de Comparacoes: 97530
+Total de Leituras de Disco: 187537
+Total de Escritas em Disco: 180000
+--------------------------------------------------------
+
+--- Relatorio: Quick Sort em Disco ---
+Tamanho da Base de Dados: 100000 registros
+Tempo de Execucao: 7.427809 segundos
+Numero de Comparacoes entre ID's: 1955687
+Numero de Operacoes de Troca no Disco: 1023325
+----------------------------------------
+
+--- Relatorio: Selecao por Substituicao junto com Arvore ---
+Tamanho da Base de Dados: 100000 registros
+Tempo de Execucao Total: 31.897391 segundos
+Particoes Geradas: 8344
+Total de Comparacoes: 108337
+Total de Leituras de Disco: 208344
+Total de Escritas em Disco: 200000
+--------------------------------------------------------
