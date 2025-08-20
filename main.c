@@ -3,7 +3,8 @@
 #include "Menu/menuConsole.h"
 #include "Entities/administrador.h"
 #include "Selecao/selecaoSubstituicao.h"
-#include "Intercalacao/arvoreVencedores.h"  
+#include "Intercalacao/arvoreVencedores.h"
+#include "Hash/hash.h"   
 
 int main() {
 
@@ -41,6 +42,25 @@ int main() {
     }
 
     inicializar_adm_padrao();
+
+    // USO DA HASH
+    inicializarTabela();
+
+    inserir(101, "Joao");
+    inserir(202, "Maria");
+    inserir(303, "Carlos");
+
+    imprimirTabela();
+
+    char *res = buscar(202);
+    if (res != NULL)
+        printf("Encontrado: %s\n", res);
+    else
+        printf("Nao encontrado!\n");
+
+    remover(101);
+    imprimirTabela();
+
     iniciar_menu_console();
     fclose(log);
 
