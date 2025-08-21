@@ -4,7 +4,7 @@
 #include "Entities/administrador.h"
 #include "Selecao/selecaoSubstituicao.h"
 #include "Intercalacao/arvoreVencedores.h"
-#include "Hash/hash.h"   
+#include "Hash/hash.h"
 
 int main() {
 
@@ -14,6 +14,8 @@ int main() {
 
     init_random();
 
+    inicializar_tabela_hash_candidatos();
+    
     FILE *log = fopen("Data/log.txt", "a");
     if (log == NULL) {
         perror("Erro: Nao foi possivel criar o arquivo de log.");
@@ -29,7 +31,9 @@ int main() {
     } else {
         fclose(arq_cand);
     }
-
+    
+    carregar_candidatos_para_hash();
+    
     FILE *arq_elei = fopen("Data/eleitores.dat", "rb");
     if (arq_elei == NULL) {
         arq_elei = fopen("Data/eleitores.dat", "wb");
@@ -43,25 +47,10 @@ int main() {
 
     inicializar_adm_padrao();
 
-    // USO DA HASH
-    inicializarTabela();
-
-    inserir(101, "Joao");
-    inserir(202, "Maria");
-    inserir(303, "Carlos");
-
-    imprimirTabela();
-
-    char *res = buscar(202);
-    if (res != NULL)
-        printf("Encontrado: %s\n", res);
-    else
-        printf("Nao encontrado!\n");
-
-    remover(101);
-    imprimirTabela();
-
     iniciar_menu_console();
+    
+    liberar_tabela_hash_candidatos(); 
+
     fclose(log);
 
     return 0;

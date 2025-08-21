@@ -9,16 +9,16 @@
             // --- SEÇÃO PARA WINDOWS ---
             // Este bloco só será usado se o VS Code estiver rodando no Windows
             "windows": {
-                "command": "gcc -g -o ${workspaceFolder}\\urna.exe ${workspaceFolder}\\main.c ${workspaceFolder}\\Entities\\*.c ${workspaceFolder}\\Buscas\\*.c ${workspaceFolder}\\Util\\*.c ${workspaceFolder}\\Ordenacao\\*.c ${workspaceFolder}\\Menu\\*.c ${workspaceFolder}\\Votos\\*.c ${workspaceFolder}\\Selecao\\*.c ${workspaceFolder}\\Intercalacao\\*.c; if ($?) { .\\urna.exe }",
+                "command": "gcc -g -o ${workspaceFolder}\\urna.exe ${workspaceFolder}\\main.c ${workspaceFolder}\\Entities\\*.c ${workspaceFolder}\\Buscas\\*.c ${workspaceFolder}\\Util\\*.c ${workspaceFolder}\\Ordenacao\\*.c ${workspaceFolder}\\Menu\\*.c ${workspaceFolder}\\Votos\\*.c ${workspaceFolder}\\Selecao\\*.c ${workspaceFolder}\\Intercalacao\\*.c ${workspaceFolder}\\Hash\\*.c; if ($?) { .\\urna.exe }",
             },
 
             // --- SEÇÃO PARA LINUX (e macOS) ---
             // Este bloco só será usado no Linux ou macOS
             "linux": {
-                "command": "gcc -g -o ${workspaceFolder}/urna.exe ${workspaceFolder}/main.c ${workspaceFolder}/Entities/*.c ${workspaceFolder}/Buscas/*.c ${workspaceFolder}/Util/*.c ${workspaceFolder}/Ordenacao/*.c ${workspaceFolder}/Menu/*.c ${workspaceFolder}/Votos/*.c ${workspaceFolder}/Selecao/*.c ${workspaceFolder}/Intercalacao/*.c && ${workspaceFolder}/urna.exe",
+                "command": "gcc -g -o ${workspaceFolder}/urna.exe ${workspaceFolder}/main.c ${workspaceFolder}/Entities/*.c ${workspaceFolder}/Buscas/*.c ${workspaceFolder}/Util/*.c ${workspaceFolder}/Ordenacao/*.c ${workspaceFolder}/Menu/*.c ${workspaceFolder}/Votos/*.c ${workspaceFolder}/Selecao/*.c ${workspaceFolder}/Intercalacao/*.c ${workspaceFolder}/Hash/*.c && ${workspaceFolder}/urna.exe",
             },
             "osx": {
-                "command": "gcc -g -o ${workspaceFolder}/urna.exe ${workspaceFolder}/main.c ${workspaceFolder}/Entities/*.c ${workspaceFolder}/Buscas/*.c ${workspaceFolder}/Util/*.c ${workspaceFolder}/Ordenacao/*.c ${workspaceFolder}/Menu/*.c ${workspaceFolder}/Votos/*.c ${workspaceFolder}/Selecao/*.c ${workspaceFolder}/Intercalacao/*.c && ${workspaceFolder}/urna.exe",
+                "command": "gcc -g -o ${workspaceFolder}/urna.exe ${workspaceFolder}/main.c ${workspaceFolder}/Entities/*.c ${workspaceFolder}/Buscas/*.c ${workspaceFolder}/Util/*.c ${workspaceFolder}/Ordenacao/*.c ${workspaceFolder}/Menu/*.c ${workspaceFolder}/Votos/*.c ${workspaceFolder}/Selecao/*.c ${workspaceFolder}/Intercalacao/*.c ${workspaceFolder}/Hash/*.c && ${workspaceFolder}/urna.exe",
             },
 
             "type": "shell",

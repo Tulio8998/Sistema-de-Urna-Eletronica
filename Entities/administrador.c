@@ -267,30 +267,8 @@ int editar_administrador(int codigo_editar, TAdm *dados_novos) {
     fclose(arq);
     return encontrado;
 }
-
 void adicionar_candidato(TCandidato *novo_candidato) {
-    FILE *arq_cand = fopen("Data/candidatos.dat", "rb");
-
-    if (arq_cand != NULL) {
-        TCandidato *cand_lido;
-        while ((cand_lido = leCandidato(arq_cand)) != NULL) {
-            if (cand_lido->codigo == novo_candidato->codigo) {
-                printf("Erro: o código %d já pertence a outro candidato\n", novo_candidato->codigo);
-                free(cand_lido);
-                fclose(arq_cand);
-                return;
-            }
-            if (strcmp(cand_lido->base.cpf, novo_candidato->base.cpf) == 0) {
-                printf("Erro: o CPF '%s' já está cadastrado\n", novo_candidato->base.cpf);
-                free(cand_lido);
-                fclose(arq_cand);
-                return;
-            }
-            free(cand_lido);
-        }
-        fclose(arq_cand);
-    }
-    arq_cand = fopen("Data/candidatos.dat", "ab");
+    FILE *arq_cand = fopen("Data/candidatos.dat", "ab");
     if (arq_cand == NULL) {
         printf("Erro ao abrir o arquivo para adicionar candidato\n");
         return;
@@ -299,7 +277,7 @@ void adicionar_candidato(TCandidato *novo_candidato) {
     salvaCandidato(novo_candidato, arq_cand);
     fclose(arq_cand);
 
-    printf("Candidato com código %d adicionado com sucesso!\n", novo_candidato->codigo);
+    printf("Candidato com codigo %d adicionado ao arquivo com sucesso!\n", novo_candidato->codigo);
 }
 
 void remover_candidato(int codigo_remover) {

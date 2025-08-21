@@ -1,24 +1,31 @@
 #ifndef HASH_H
 #define HASH_H
 
-#define TAM 10   // tamanho da tabela hash
+#include "../Entities/candidato.h"
 
-// Estrutura do nó da lista (para tratar colisões)
+#define TAMANHO_TABELA 101
+
 typedef struct No {
-    int chave;
-    char valor[50];
-    struct No* prox;
-} No;
+    TCandidato *candidato;
+    struct No *proximo;
+} TNo;
 
-// Variável global da tabela hash
-extern No* tabela[TAM];
+extern TNo *tabela_hash_candidatos[TAMANHO_TABELA];
 
-// Funções
-int hash(int chave);
-void inserir(int chave, char* valor);
-char* buscar(int chave);
-int remover(int chave);
-void imprimirTabela();
-void inicializarTabela();
+int funcao_hash_candidato(int codigo);
 
-#endif
+void inicializar_tabela_hash_candidatos();
+
+void inserir_candidato_hash(TCandidato *candidato);
+
+TCandidato* buscar_candidato_hash(int codigo);
+
+int remover_candidato_hash(int codigo);
+
+void carregar_candidatos_para_hash();
+
+void liberar_tabela_hash_candidatos();
+
+void imprimir_tabela_hash_candidatos();
+
+#endif // HASH_H

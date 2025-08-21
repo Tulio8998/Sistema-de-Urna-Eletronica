@@ -3,87 +3,103 @@
 #include <string.h>
 #include "hash.h"
 
-// Definição da tabela hash
-No* tabela[TAM];
+TNo *tabela_hash_candidatos[TAMANHO_TABELA];
 
-// Função hash simples (resto da divisão)
-int hash(int chave) {
-    return chave % TAM;
+int funcao_hash_candidato(int codigo) {
+    return codigo % TAMANHO_TABELA;
 }
 
-void inicializarTabela() {
-    for (int i = 0; i < TAM; i++) {
-        tabela[i] = NULL;
+void inicializar_tabela_hash_candidatos() {
+    for (int i = 0; i < TAMANHO_TABELA; i++) {
+        tabela_hash_candidatos[i] = NULL;
     }
 }
 
-void inserir(int chave, char* valor) {
-    int indice = hash(chave);
-
-    // Criar novo nó
-    No* novo = (No*) malloc(sizeof(No));
-    novo->chave = chave;
-    strcpy(novo->valor, valor);
-    novo->prox = NULL;
-
-    // Inserir no início da lista
-    if (tabela[indice] == NULL) {
-        tabela[indice] = novo;
-    } else {
-        novo->prox = tabela[indice];
-        tabela[indice] = novo;
+void inserir_candidato_hash(TCandidato *candidato) {
+    int indice = funcao_hash_candidato(candidato->codigo);
+    TNo *novo_no = (TNo *) malloc(sizeof(TNo));
+    if (!novo_no) {
+        perror("Erro ao alocar memoria para novo no da hash de candidatos");
+        return;
     }
-
-    printf("Inserido: (%d, %s) na posição %d\n", chave, valor, indice);
+    novo_no->candidato = candidato;
+    novo_no->proximo = tabela_hash_candidatos[indice];
+    tabela_hash_candidatos[indice] = novo_no;
 }
 
-char* buscar(int chave) {
-    int indice = hash(chave);
-    No* atual = tabela[indice];
-
+TCandidato* buscar_candidato_hash(int codigo) {
+    int indice = funcao_hash_candidato(codigo);
+    TNo *atual = tabela_hash_candidatos[indice];
     while (atual != NULL) {
-        if (atual->chave == chave) {
-            return atual->valor;
+        if (atual->candidato->codigo == codigo) {
+            return atual->candidato;
         }
-        atual = atual->prox;
+        atual = atual->proximo;
     }
-    return NULL; // não encontrado
+    return NULL;
 }
 
-int remover(int chave) {
-    int indice = hash(chave);
-    No* atual = tabela[indice];
-    No* anterior = NULL;
+int remover_candidato_hash(int codigo) {
+    int indice = funcao_hash_candidato(codigo);
+    TNo *atual = tabela_hash_candidatos[indice];
+    TNo *anterior = NULL;
 
-    while (atual != NULL) {
-        if (atual->chave == chave) {
-            if (anterior == NULL) {
-                tabela[indice] = atual->prox;
-            } else {
-                anterior->prox = atual->prox;
-            }
-            free(atual);
-            printf("Removido: %d da posição %d\n", chave, indice);
-            return 1; // removido com sucesso
-        }
+    while (atual != NULL && atual->candidato->codigo != codigo) {
         anterior = atual;
-        atual = atual->prox;
+        atual = atual->proximo;
     }
-    return 0; // não encontrado
+
+    if (atual == NULL) return 0; 
+
+    if (anterior == NULL) {
+        tabela_hash_candidatos[indice] = atual->proximo;
+    } else {
+        anterior->proximo = atual->proximo;
+    }
+
+    free(atual->candidato);
+    free(atual);
+    return 1;
 }
 
-// ===============================
-// IMPRIMIR TABELA HASH
-// ===============================
-void imprimirTabela() {
-    printf("\n--- Tabela Hash ---\n");
-    for (int i = 0; i < TAM; i++) {
-        printf("%d: ", i);
-        No* atual = tabela[i];
-        while (atual != NULL) {
-            printf(" -> (%d, %s)", atual->chave, atual->valor);
-            atual = atual->prox;
-        }
-        printf("\n");
+void carregar_candidatos_para_hash() {
+    FILE *arq = fopen("Data/candidatos.dat", "rb");
+    if (arq == NULL) return;
+
+    TCandidato *cand_lido;
+    while ((cand_lido = leCandidato(arq)) != NULL) {
+        inserir_candidato_hash(cand_lido);
     }
+    fclose(arq);
+    printf("\nCandidatos carregados para a tabela hash em memoria.\n");
+}
+
+void liberar_tabela_hash_candidatos() {
+    for (int i = 0; i < TAMANHO_TABELA; i++) {
+        TNo *atual = tabela_hash_candidatos[i];
+        while (atual != NULL) {
+            TNo *temp = atual;
+            atual = atual->proximo;
+            free(temp->candidato);
+            free(temp);
+        }
+    }
+}
+
+void imprimir_tabela_hash_candidatos() {
+    printf("\n--- CONTEUDO DA TABELA HASH DE CANDIDATOS ---\n");
+    for (int i = 0; i < TAMANHO_TABELA; i++) {
+        printf("Indice [%d]: ", i);
+        TNo* atual = tabela_hash_candidatos[i];
+        if (atual == NULL) {
+            printf("Vazio\n");
+        } else {
+            while(atual != NULL) {
+                printf("[Cod: %d, Nome: %s] -> ", atual->candidato->codigo, atual->candidato->base.nome);
+                atual = atual->proximo;
+            }
+            printf("NULL\n");
+        }
+    }
+    printf("---------------------------------------------\n");
 }

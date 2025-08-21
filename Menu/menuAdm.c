@@ -11,6 +11,7 @@
 #include "../Selecao/selecaoSubstituicao.h"
 #include "../Intercalacao/arvoreVencedores.h"
 #include "../Votos/votacao.h"
+#include "../Hash/hash.h"
 extern long long int comparacoes_selecao;
 extern long long int leituras_selecao;
 extern long long int escritas_selecao;
@@ -219,42 +220,58 @@ void iniciar_menu_adm(TAdm *adm_logado) {
             case 2: {
                 int opcao_candidato;
                 do {
-                    printf("\n======================================================");
+                     printf("\n======================================================");
                     printf("\n\tGERENCIADOR DE CANDIDATOS");
                     printf("\n======================================================\n");
                     printf("1. Adicionar Candidato");
-                    printf("\t4. Listar Todos os Candidatos\n");
+                    printf("\t\t5. Pesquisar Candidato (em arquivo)...\n");
                     printf("2. Editar Candidato");
-                    printf("\t5. Pesquisar Candidato...\n");
+                    printf("\t\t6. Ordenar arquivo (QuickSort)\n");
                     printf("3. Remover Candidato");
-                    printf("\t6. Preparar arquivo para busca rápida (Ordenar por QuickSort)\n");
+                    printf("\t\t7. Ordenar arquivo (Selecao/Subst.)\n");
+                    printf("4. Listar Todos (do arquivo)");
+                    printf("\t8. Buscar Candidato (Tabela Hash)\n");
                     printf("0. Voltar");
-                    printf("\t\t7. Preparar arquivo para busca rápida (Ordenar por Selecao por Substituicao)\n");
-                    printf("Escolha uma opção: ");
+                    printf("\t\t\t9. Visualizar Tabela Hash\n");
+                    printf("Escolha uma opcao: ");
                     scanf("%d", &opcao_candidato);
                      if (opcao_candidato != 1 && opcao_candidato != 2 && opcao_candidato != 3 && opcao_candidato != 4 
-                         && opcao_candidato != 5 && opcao_candidato != 6 && opcao_candidato != 7 && opcao_candidato != 0){
+                         && opcao_candidato != 5 && opcao_candidato != 6 && opcao_candidato != 7  && opcao_candidato != 8  && opcao_candidato != 9 && opcao_candidato != 0){
                         printf("Opcao invalida. Tente novamente.\n");
                         continue;
                     }
 
                     switch (opcao_candidato) {
                         case 1: {
-                            TCandidato novo_candidato;
-                            printf("Digite o código do novo candidato: "); 
-                            scanf("%d", &novo_candidato.codigo);
+                            TCandidato *novo_candidato = (TCandidato*) malloc(sizeof(TCandidato));
+                            if(novo_candidato == NULL){
+                                printf("Erro de alocacao de memoria!\n");
+                                break;
+                            }
+                            
+                            printf("Digite o codigo do novo candidato: ");
+                            scanf("%d", &novo_candidato->codigo);
+
+                            if (buscar_candidato_hash(novo_candidato->codigo) != NULL) {
+                                printf("Erro: Codigo de candidato ja existente.\n");
+                                free(novo_candidato);
+                                break;
+                            }
+                            
                             printf("Digite o nome: "); 
-                            scanf(" %[^\n]", novo_candidato.base.nome);
+                            scanf(" %[^\n]", novo_candidato->base.nome);
                             printf("Digite o CPF: "); 
-                            scanf(" %[^\n]", novo_candidato.base.cpf);
+                            scanf(" %[^\n]", novo_candidato->base.cpf);
                             printf("Digite a data de nascimento (DD/MM/AAAA): "); 
-                            scanf(" %[^\n]", novo_candidato.base.data_nascimento);
+                            scanf(" %[^\n]", novo_candidato->base.data_nascimento);
                             printf("Digite o Cargo: "); 
-                            scanf(" %[^\n]", novo_candidato.cargo);
+                            scanf(" %[^\n]", novo_candidato->cargo);
                             printf("Digite o Partido: "); 
-                            scanf(" %[^\n]", novo_candidato.partido);
-                            novo_candidato.voto = 0;
-                            adicionar_candidato(&novo_candidato);
+                            scanf(" %[^\n]", novo_candidato->partido);
+                            novo_candidato->voto = 0;
+                            
+                            adicionar_candidato(novo_candidato);
+                            inserir_candidato_hash(novo_candidato);
                             break;
                         }
                         case 2: {
@@ -281,9 +298,10 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                         }
                         case 3: {
                             int codigo_remover;
-                            printf("Digite o código do candidato a ser removido: ");
+                            printf("Digite o codigo do candidato a ser removido: ");
                             scanf("%d", &codigo_remover);
-                            remover_candidato(codigo_remover);
+                            remover_candidato(codigo_remover); 
+                            remover_candidato_hash(codigo_remover);
                             break;
                         }
                         case 4: {
@@ -458,6 +476,26 @@ void iniciar_menu_adm(TAdm *adm_logado) {
                             fprintf(log, "--------------------------------------------------------\n");
                             printf("Ordenacao finalizada. Resultados salvos no log.\n");
                             fclose(log);
+                            break;
+                        }
+                        case 8: {
+                            int codigo_busca;
+                            printf("\n--- Busca Rapida de Candidato com Tabela Hash ---\n");
+                            printf("Digite o codigo do candidato a ser buscado: ");
+                            scanf("%d", &codigo_busca);
+
+                            TCandidato *encontrado = buscar_candidato_hash(codigo_busca);
+
+                            if (encontrado) {
+                                printf("Candidato encontrado na Tabela Hash:\n");
+                                imprimeCandidato(encontrado);
+                            } else {
+                                printf("Candidato com codigo %d nao encontrado.\n", codigo_busca);
+                            }
+                            break;
+                        }
+                        case 9: {
+                            imprimir_tabela_hash_candidatos();
                             break;
                         }
                         case 0:
