@@ -71,7 +71,6 @@ void carregar_candidatos_para_hash() {
         inserir_candidato_hash(cand_lido);
     }
     fclose(arq);
-    printf("\nCandidatos carregados para a tabela hash em memoria.\n");
 }
 
 void liberar_tabela_hash_candidatos() {
